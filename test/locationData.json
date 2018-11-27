@@ -1,0 +1,646 @@
+{
+"locations": [
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487177598,
+"longitudeE7": 212666719
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487070255,
+"longitudeE7": 212576084
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487263761,
+"longitudeE7": 212451702
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487077911,
+"longitudeE7": 212573088
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Morning",
+"latitudeE7": 487078135,
+"longitudeE7": 212122203
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487165189,
+"longitudeE7": 212114749
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 486956605,
+"longitudeE7": 212468251
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487034563,
+"longitudeE7": 212131425
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487189173,
+"longitudeE7": 212570017
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487233979,
+"longitudeE7": 212577117
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487167025,
+"longitudeE7": 212540742
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487116046,
+"longitudeE7": 212125625
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487190034,
+"longitudeE7": 212569502
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487213588,
+"longitudeE7": 212523365
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487205878,
+"longitudeE7": 212557779
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487175241,
+"longitudeE7": 212602454
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487181219,
+"longitudeE7": 212602445
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487191826,
+"longitudeE7": 212572608
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487255774,
+"longitudeE7": 212562096
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487205878,
+"longitudeE7": 212557779
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487255774,
+"longitudeE7": 212562096
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487271971,
+"longitudeE7": 212458801
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487223624,
+"longitudeE7": 212592643
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487246671,
+"longitudeE7": 212377018
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487780264,
+"longitudeE7": 212076722
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487275593,
+"longitudeE7": 212326609
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487081211,
+"longitudeE7": 214412525
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487161515,
+"longitudeE7": 212136346
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487001444,
+"longitudeE7": 212323848
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487189738,
+"longitudeE7": 212568284
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487186997,
+"longitudeE7": 212417743
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487295249,
+"longitudeE7": 212594999
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487378123,
+"longitudeE7": 212526902
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487166765,
+"longitudeE7": 212669807
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487262597,
+"longitudeE7": 212552589
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486980986,
+"longitudeE7": 212340841
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487200851,
+"longitudeE7": 212326893
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 486980986,
+"longitudeE7": 212340841
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487164892,
+"longitudeE7": 212388031
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487145598,
+"longitudeE7": 212184008
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487160962,
+"longitudeE7": 212213974
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487088372,
+"longitudeE7": 212574247
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487139969,
+"longitudeE7": 212481657
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487164706,
+"longitudeE7": 212654249
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487300148,
+"longitudeE7": 212510512
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487250697,
+"longitudeE7": 212459913
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487278651,
+"longitudeE7": 212531642
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487245419,
+"longitudeE7": 212588581
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487261871,
+"longitudeE7": 212571824
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487243778,
+"longitudeE7": 212583421
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487184736,
+"longitudeE7": 212618676
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487356402,
+"longitudeE7": 212990369
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487516598,
+"longitudeE7": 212711417
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487200851,
+"longitudeE7": 212326893
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487264247,
+"longitudeE7": 212507379
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487200851,
+"longitudeE7": 212326893
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487282673,
+"longitudeE7": 212550434
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487060826,
+"longitudeE7": 212664632
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487258811,
+"longitudeE7": 212571876
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487166765,
+"longitudeE7": 212669807
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487293845,
+"longitudeE7": 212557733
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487051157,
+"longitudeE7": 212335995
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487191256,
+"longitudeE7": 212629366
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487200851,
+"longitudeE7": 212326893
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487190557,
+"longitudeE7": 212674025
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487172811,
+"longitudeE7": 212526185
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487261871,
+"longitudeE7": 212571824
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487030839,
+"longitudeE7": 212542124
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487351341,
+"longitudeE7": 212482067
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487085611,
+"longitudeE7": 212126937
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487067061,
+"longitudeE7": 212477891
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487193953,
+"longitudeE7": 212649915
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 487244628,
+"longitudeE7": 212465806
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 486990901,
+"longitudeE7": 212601524
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Afternoon",
+"latitudeE7": 486929152,
+"longitudeE7": 212048345
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487185368,
+"longitudeE7": 212659568
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487285904,
+"longitudeE7": 212583021
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487189738,
+"longitudeE7": 212568284
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486804525,
+"longitudeE7": 212304162
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486761504,
+"longitudeE7": 213006076
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487222138,
+"longitudeE7": 212582051
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487123303,
+"longitudeE7": 212389594
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487282673,
+"longitudeE7": 212550434
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486368175,
+"longitudeE7": 211713286
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487180407,
+"longitudeE7": 212622355
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487268483,
+"longitudeE7": 212617123
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487525032,
+"longitudeE7": 212721342
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486890456,
+"longitudeE7": 211935973
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486912538,
+"longitudeE7": 212016305
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486762043,
+"longitudeE7": 212998209
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487175241,
+"longitudeE7": 212602454
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487468212,
+"longitudeE7": 212395017
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487182944,
+"longitudeE7": 212688377
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487270504,
+"longitudeE7": 212387257
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487402795,
+"longitudeE7": 212774384
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487072539,
+"longitudeE7": 212589238
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487143347,
+"longitudeE7": 212170379
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487236151,
+"longitudeE7": 212585376
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 486686423,
+"longitudeE7": 213182466
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487150347,
+"longitudeE7": 212633683
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487191826,
+"longitudeE7": 212572608
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487228078,
+"longitudeE7": 212541041
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Night",
+"latitudeE7": 487245419,
+"longitudeE7": 212588581
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487108584,
+"longitudeE7": 212375612
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487255656,
+"longitudeE7": 212393986
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487414774,
+"longitudeE7": 212656204
+},
+{
+"timestampMs": "1515229994750",
+"timeOfDay": "Evening",
+"latitudeE7": 487165527,
+"longitudeE7": 212353299
+}
+]
+}

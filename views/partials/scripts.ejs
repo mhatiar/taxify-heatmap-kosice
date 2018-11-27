@@ -1,0 +1,59 @@
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+<script src="leaflet.heat.min.js"></script>
+<script src="leaflet-heat.js"></script>  
+<script src="groupLayerPanel.js"></script>  
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+
+<script>
+  var map = L.map('map').setView([48.7170, 21.2494], 13); 
+  var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  	maxZoom: 17,
+	minZoom: 2,
+  	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  
+  var heatOptions = {
+			tileOpacity: 1,
+			heatOpacity: 1,
+			scaleRadius: true,			
+			radius: 30,
+			blur: 15
+		};
+		
+	 var baselayers = {
+		"OpenStreetMap Mapnik":osm_mapnik
+	};
+
+  
+  	var morningAddressPoints = <%- JSON.stringify(morning) %>;
+	var noonAddressPoints = <%- JSON.stringify(noon) %>;
+	var afternoonAddressPoints = <%- JSON.stringify(afternoon) %>;
+	var eveningAddressPoints = <%- JSON.stringify(evening) %>;
+	var nightAddressPoints = <%- JSON.stringify(night) %>;
+	
+	morningAddressPoints = morningAddressPoints.map(function (p) { return [p[0], p[1]]; });
+	noonAddressPoints = noonAddressPoints.map(function (p) { return [p[0], p[1]]; });
+	afternoonAddressPoints = afternoonAddressPoints.map(function (p) { return [p[0], p[1]]; });
+	eveningAddressPoints = eveningAddressPoints.map(function (p) { return [p[0], p[1]]; });
+	nightAddressPoints = nightAddressPoints.map(function (p) { return [p[0], p[1]]; });
+	
+	var moringData = L.heatLayer(morningAddressPoints, heatOptions).addTo(map),
+		noonData = L.heatLayer(noonAddressPoints, heatOptions).addTo(map),
+		afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions).addTo(map),
+		eveningData = L.heatLayer(eveningAddressPoints, heatOptions).addTo(map),
+		nightData = L.heatLayer(nightAddressPoints, heatOptions).addTo(map);
+	
+	var layers = {
+	"Peak Heat Layers":{
+		"Moring Peak": moringData,
+		"Afternoon Peak": afternoonData,
+		"Evening Peak": eveningData,
+		"Night Peak": nightData
+	}
+	};
+	
+	L.control.groupedLayers(baselayers, layers).addTo(map);
+	L.control.locate().addTo(map);
+  
+</script>
