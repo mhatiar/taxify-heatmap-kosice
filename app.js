@@ -46,10 +46,9 @@ if (cluster.isMaster) {
 		var afternoonLatLngs = [];
 		var eveningLatLngs = [];
 		var nightLatLngs = [];
-		const locationData = {};
 	
 		try {
-			locationData = await dataRet.RetrieveData();		
+			const locationData = await dataRet.RetrieveData();		
 		
 			for (let i = 0; i < locationData[0]["locations"].length; i++){	
 				var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
@@ -75,25 +74,6 @@ if (cluster.isMaster) {
 		catch (err) {
 			console.log("Unable to retrieve commits for project: " + err.toString());
 		}
-		
-		function extractArrayWithWeekDayAndTimeOfDay(locationData) {
-    			for (var k in obj) {
-        			if (obj[k] && obj[k].length && "weekDay" in obj[k][0] && "timeOfDay" in obj[k][0]) {
-            				return obj[k];
-        			}
-    				}
-    			return [];
-		}
-		
-		var sourceArray = extractArrayWithValueAndSay(theObject);
-
-		var wd = 'ut';
-
-		var filteredWithWeekDay = sourceArray.filter(function (obj){
-    			return obj && obj.weekDay == wd;
-		});
-		
-		console.log(filteredWithWeekDay);
 		
 		res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night:nightLatLngs});
 	});
