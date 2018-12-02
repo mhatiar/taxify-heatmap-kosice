@@ -37,6 +37,16 @@ if (cluster.isMaster) {
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(express.static('js'));
 	
+    var locationsData = async function (callback) {
+  	// Perform the querry to api and retrieve the data
+       try {
+          const locationData = await dataRet.RetrieveData();
+       }catch (err) {
+	  console.log("Unable to retrieve data from API: " + err.toString());
+       }
+       return callback(null, locationData);
+    };
+	
     // https://stackoverflow.com/questions/47145224/passing-variable-from-app-js-to-ejs-file-into-a-script-tag
     // index page
     app.get('/', async function(req, res) {
@@ -74,6 +84,12 @@ if (cluster.isMaster) {
 	catch (err) {
 		console.log("Unable to retrieve commits for project: " + err.toString());
 	}
+	    
+	    
+	findUserByUsername(function(error, data) {
+    		if (error) return next(error);
+    		console.log(data);
+  	});
 		
 	res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night:nightLatLngs});
     });
@@ -81,7 +97,7 @@ if (cluster.isMaster) {
     app.get('/:weekday', function(req, res) {
     	var weekday = req.params.weekday;
 	    
-	res.render('pages/index', {});
+	//res.render('pages/index', {});
 	console.log(weekday);
 
 	    
