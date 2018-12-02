@@ -35,48 +35,57 @@ if (cluster.isMaster) {
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended:false}));
-	app.use(express.static('js'));
+    app.use(express.static('js'));
 	
-	// https://stackoverflow.com/questions/47145224/passing-variable-from-app-js-to-ejs-file-into-a-script-tag
+    // https://stackoverflow.com/questions/47145224/passing-variable-from-app-js-to-ejs-file-into-a-script-tag
     // index page
-	app.get('/', async function(req, res) {
+    app.get('/', async function(req, res) {
 	
-		var morningLatLngs = [];
-		var noonLatLngs = [];
-		var afternoonLatLngs = [];
-		var eveningLatLngs = [];
-		var nightLatLngs = [];
+	var morningLatLngs = [];
+	var noonLatLngs = [];
+	var afternoonLatLngs = [];
+	var eveningLatLngs = [];
+	var nightLatLngs = [];
 	
-		try {
-			const locationData = await dataRet.RetrieveData();		
+	try {
+		const locationData = await dataRet.RetrieveData();		
 		
-			for (let i = 0; i < locationData[0]["locations"].length; i++){	
-				var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
+		for (let i = 0; i < locationData[0]["locations"].length; i++){	
+			var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
 		
-				if( locationData[0]["locations"][i].timeOfDay == "Morning"){
-					morningLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-				}
-			    if( locationData[0]["locations"][i].timeOfDay == "Noon"){
-					noonLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-				}
-				if( locationData[0]["locations"][i].timeOfDay == "Afternoon"){
-					afternoonLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-				}
-				if( locationData[0]["locations"][i].timeOfDay == "Evening"){
-					eveningLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-				}
-				if( locationData[0]["locations"][i].timeOfDay == "Night"){
-					nightLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-				}
+			if( locationData[0]["locations"][i].timeOfDay == "Morning"){
+				morningLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
 			}
+			if( locationData[0]["locations"][i].timeOfDay == "Noon"){
+				noonLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( locationData[0]["locations"][i].timeOfDay == "Afternoon"){
+				afternoonLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( locationData[0]["locations"][i].timeOfDay == "Evening"){
+				eveningLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( locationData[0]["locations"][i].timeOfDay == "Night"){
+				nightLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
+			}
+		}
 
-		}
-		catch (err) {
-			console.log("Unable to retrieve commits for project: " + err.toString());
-		}
+	}
+	catch (err) {
+		console.log("Unable to retrieve commits for project: " + err.toString());
+	}
 		
-		res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night:nightLatLngs});
-	});
+	res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night:nightLatLngs});
+    });
+		
+    app.get('/:weekday', function(req, res) {
+    	var weekday = req.params.weekday;
+	    
+	res.render('pages/index', {});
+	console.log(weekday);
+
+	    
+    });
 
     var port = process.env.PORT || 3000;
 
