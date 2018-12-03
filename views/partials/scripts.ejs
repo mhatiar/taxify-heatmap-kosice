@@ -32,12 +32,6 @@
 	var eveningAddressPoints = <%- JSON.stringify(evening) %>;
 	var nightAddressPoints = <%- JSON.stringify(night) %>;
 	
-	morningAddressPoints = morningAddressPoints.map(function (p) { return [p[0], p[1]]; });
-	noonAddressPoints = noonAddressPoints.map(function (p) { return [p[0], p[1]]; });
-	afternoonAddressPoints = afternoonAddressPoints.map(function (p) { return [p[0], p[1]]; });
-	eveningAddressPoints = eveningAddressPoints.map(function (p) { return [p[0], p[1]]; });
-	nightAddressPoints = nightAddressPoints.map(function (p) { return [p[0], p[1]]; });
-	
 	var moringData = L.heatLayer(morningAddressPoints, heatOptions).addTo(map),
 		afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions).addTo(map),
 		eveningData = L.heatLayer(eveningAddressPoints, heatOptions).addTo(map),
