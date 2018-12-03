@@ -37,17 +37,14 @@ if (cluster.isMaster) {
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(express.static('js'));
 	
-    var locationsData = async function (callback) {
-  	// Perform the querry to api and retrieve the data
-       try {
-          const locationData = await dataRet.RetrieveData();
-       }catch (err) {
-	  console.log("Unable to retrieve data from API: " + err.toString());
-       }
-       return callback(null, locationData);
-    };
+    const promise = new Promise(function(resolve, reject) {
+    // retrieve the data from API
+        const locationData = dataRet.RetrieveData();
+  	console.log(locationData);
+	resolve(locationData);
+  
+    });
 	
-    // https://stackoverflow.com/questions/47145224/passing-variable-from-app-js-to-ejs-file-into-a-script-tag
     // index page
     app.get('/', async function(req, res) {
 	
@@ -84,21 +81,60 @@ if (cluster.isMaster) {
 	catch (err) {
 		console.log("Unable to retrieve commits for project: " + err.toString());
 	}
-	    
-	    
-	findUserByUsername(function(error, data) {
-    		if (error) return next(error);
-    		console.log(data);
-  	});
 		
 	res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night:nightLatLngs});
     });
 		
-    app.get('/:weekday', function(req, res) {
-    	var weekday = req.params.weekday;
+    app.get('/:weekDay', function(req, res) {
 	    
-	//res.render('pages/index', {});
-	console.log(weekday);
+	var weekDayParam = req.params.weekDay
+	
+        promise.then(function(resultAll) {
+		var locations = resultAll[0]["locations"];
+		console.log(locations);
+		
+		
+		var allLatLngs = [];
+		var morningLatLngs = [];
+		var noonLatLngs = [];
+		var afternoonLatLngs = [];
+		var eveningLatLngs = [];
+		var nightLatLngs = [];
+		
+		console.log(weekDayParam);
+				
+		var result = locations.filter(function (item) {
+			return item.weekDay === weekDayParam;
+		});
+		
+		console.log(result);
+		
+		for (let i = 0; i < result.length; i++){	
+			var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
+			allLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
+			
+			if( result[i].timeOfDay == "Morning"){
+				morningLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( result[i].timeOfDay == "Noon"){
+				noonLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( result[i].timeOfDay == "Afternoon"){
+				afternoonLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( result[i].timeOfDay == "Evening"){
+				eveningLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
+			}
+			if( result[i].timeOfDay == "Night"){
+				nightLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
+			}
+			
+			
+		}
+		
+		res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs});
+	})
+	    
 
 	    
     });
