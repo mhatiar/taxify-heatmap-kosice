@@ -48,95 +48,52 @@ if (cluster.isMaster) {
     // index page
     app.get('/', async function(req, res) {
 	
-	var morningLatLngs = [];
-	var noonLatLngs = [];
-	var afternoonLatLngs = [];
-	var eveningLatLngs = [];
-	var nightLatLngs = [];
-	
-	try {
-		const locationData = await dataRet.RetrieveData();		
-		
-		for (let i = 0; i < locationData[0]["locations"].length; i++){	
-			var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
-		
-			if( locationData[0]["locations"][i].timeOfDay == "Morning"){
-				morningLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( locationData[0]["locations"][i].timeOfDay == "Noon"){
-				noonLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( locationData[0]["locations"][i].timeOfDay == "Afternoon"){
-				afternoonLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( locationData[0]["locations"][i].timeOfDay == "Evening"){
-				eveningLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( locationData[0]["locations"][i].timeOfDay == "Night"){
-				nightLatLngs.push( [ locationData[0]["locations"][i].latitudeE7 * SCALAR_E7, locationData[0]["locations"][i].longitudeE7 * SCALAR_E7 ] );
-			}
-		}
 
-	}
-	catch (err) {
-		console.log("Unable to retrieve commits for project: " + err.toString());
-	}
+	var SCALAR_E7 = 0.0000001
+	
+        promise.then(function(resultAll) {
+	    var locations = resultAll[0]["locations"];
 		
-	res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night:nightLatLngs});
+	    function getDayPeakData( peakPeriod ) {
+	        return locations.filter(function (item) {  return item.timeOfDay === peakPeriod;})
+			.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
+	    }
+	
+	    var morningLatLngs = getDayPeakData( 'Morning' )
+	    var noonLatLngs = getDayPeakData( 'Noon' )
+	    var afternoonLatLngs = getDayPeakData( 'Afternoon' )
+	    var eveningLatLngs = getDayPeakData( 'Evening' )
+	    var nightLatLngs = getDayPeakData( 'Night' )
+		
+	    res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs});
+	})  
     });
 		
     app.get('/:weekDay', function(req, res) {
-	    
+        	
 	var weekDayParam = req.params.weekDay
+	var SCALAR_E7 = 0.0000001
 	
         promise.then(function(resultAll) {
-		var locations = resultAll[0]["locations"];
-		console.log(locations);
+	    var locations = resultAll[0]["locations"];
 		
+	    var result = locations.filter(function (item) {
+	        return item.weekDay === weekDayParam;
+	    });
 		
-		var allLatLngs = [];
-		var morningLatLngs = [];
-		var noonLatLngs = [];
-		var afternoonLatLngs = [];
-		var eveningLatLngs = [];
-		var nightLatLngs = [];
+	    function getDayPeakData( peakPeriod ) {
+	        return result.filter(function (item) {  return item.timeOfDay === peakPeriod;})
+			.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
+	    }
+	
+	    var morningLatLngs = getDayPeakData( 'Morning' )
+	    var noonLatLngs = getDayPeakData( 'Noon' )
+	    var afternoonLatLngs = getDayPeakData( 'Afternoon' )
+	    var eveningLatLngs = getDayPeakData( 'Evening' )
+	    var nightLatLngs = getDayPeakData( 'Night' )
 		
-		console.log(weekDayParam);
-				
-		var result = locations.filter(function (item) {
-			return item.weekDay === weekDayParam;
-		});
-		
-		console.log(result);
-		
-		for (let i = 0; i < result.length; i++){	
-			var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
-			allLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
-			
-			if( result[i].timeOfDay == "Morning"){
-				morningLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( result[i].timeOfDay == "Noon"){
-				noonLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( result[i].timeOfDay == "Afternoon"){
-				afternoonLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( result[i].timeOfDay == "Evening"){
-				eveningLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
-			}
-			if( result[i].timeOfDay == "Night"){
-				nightLatLngs.push( [ result[i].latitudeE7 * SCALAR_E7, result[i].longitudeE7 * SCALAR_E7 ] );
-			}
-			
-			
-		}
-		
-		res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs});
-	})
-	    
-
-	    
+	    res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs});
+	})    
     });
 
     var port = process.env.PORT || 3000;
