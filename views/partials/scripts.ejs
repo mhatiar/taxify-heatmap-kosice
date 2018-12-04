@@ -33,6 +33,7 @@
 	var nightAddressPoints = <%- JSON.stringify(night) %>;
 	
 	var moringData = L.heatLayer(morningAddressPoints, heatOptions).addTo(map),
+		noonData = L.heatLayer(noonAddressPoints, heatOptions).addTo(map),
 		afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions).addTo(map),
 		eveningData = L.heatLayer(eveningAddressPoints, heatOptions).addTo(map),
 		nightData = L.heatLayer(nightAddressPoints, heatOptions).addTo(map);
@@ -40,7 +41,7 @@
 	var layers = {
 	"Peak Heat Layers":{
 		"Moring Peak": moringData,
-		"Noon Peak": L.heatLayer(noonAddressPoints, heatOptions).addTo(map),
+		"Noon Peak": noonData,
 		"Afternoon Peak": afternoonData,
 		"Evening Peak": eveningData,
 		"Night Peak": nightData
