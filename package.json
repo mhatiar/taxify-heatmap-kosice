@@ -26,8 +26,8 @@
   "homepage": "https://github.com/tsamaya/node-leaflet-express-ejs#readme",
   "dependencies": {
     "ejs": "^2.5.5",
-	"aws-sdk": "latest",
-	"follow-redirects": "^1.5.9",
+    "aws-sdk": "latest",
+    "follow-redirects": "^1.5.9",
     "express": "^4.14.1",
     "express-ejs-layouts": "^2.2.0"
   },

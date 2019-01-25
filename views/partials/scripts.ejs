@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
 <script src="leaflet.heat.min.js"></script>
 <script src="leaflet-heat.js"></script>  
@@ -31,12 +32,17 @@
 	var afternoonAddressPoints = <%- JSON.stringify(afternoon) %>;
 	var eveningAddressPoints = <%- JSON.stringify(evening) %>;
 	var nightAddressPoints = <%- JSON.stringify(night) %>;
+
+	var drvrs = <% if (typeof(drivers) !== 'undefined') { %>
+	<%- JSON.stringify(drivers) %>
+	<% } %>
 	
 	var moringData = L.heatLayer(morningAddressPoints, heatOptions).addTo(map),
 		noonData = L.heatLayer(noonAddressPoints, heatOptions).addTo(map),
 		afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions).addTo(map),
 		eveningData = L.heatLayer(eveningAddressPoints, heatOptions).addTo(map),
 		nightData = L.heatLayer(nightAddressPoints, heatOptions).addTo(map);
+
 	
 	var layers = {
 	"Peak Heat Layers":{
@@ -50,5 +56,9 @@
 	
 	L.control.groupedLayers(baselayers, layers).addTo(map);
 	L.control.locate().addTo(map);
+	
+	for (var driverMark of drvrs){
+		var marker = L.marker([driverMark[0], driverMark[1]]).addTo(map);;
+	}
   
 </script>

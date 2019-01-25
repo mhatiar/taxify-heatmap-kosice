@@ -27,6 +27,7 @@ if (cluster.isMaster) {
     var express = require('express');
     var bodyParser = require('body-parser');
 	const dataRet = require("./lib/retrieve");
+	const driversRet = require("./lib/retrieveDrivers");
 
     AWS.config.region = process.env.REGION
 
@@ -51,7 +52,7 @@ if (cluster.isMaster) {
 
 	var SCALAR_E7 = 0.0000001
 	
-        promise.then(function(resultAll) {
+        promise.then(async function(resultAll) {
 	    var locations = resultAll[0]["locations"];
 		
 	    function getDayPeakData( peakPeriod ) {
@@ -65,16 +66,28 @@ if (cluster.isMaster) {
 	    var eveningLatLngs = getDayPeakData( 'Evening' )
 	    var nightLatLngs = getDayPeakData( 'Night' )
 		
-	    res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs});
+		try {
+			 const driversData = await driversRet.RetrieveData();
+
+			var driversDataArray = [];
+			for (var driver of driversData){
+				driversDataArray.push([driver.lat ,driver.lng ]);
+			}
+			//console.log(driversDataArray);
+			 
+			res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+			 
+		} catch (err) {}
+		
 	})  
     });
 		
-    app.get('/:weekDay', function(req, res) {
+    app.get('/:weekDay',async function(req, res) {
         	
 	var weekDayParam = req.params.weekDay
 	var SCALAR_E7 = 0.0000001
 	
-        promise.then(function(resultAll) {
+        promise.then(async function(resultAll) {
 	    var locations = resultAll[0]["locations"];
 		
 	    var result = locations.filter(function (item) {
@@ -92,7 +105,19 @@ if (cluster.isMaster) {
 	    var eveningLatLngs = getDayPeakData( 'Evening' )
 	    var nightLatLngs = getDayPeakData( 'Night' )
 		
-	    res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs});
+		try {
+			const driversData = await driversRet.RetrieveData();
+
+			var driversDataArray = [];
+			for (var driver of driversData){
+				driversDataArray.push([driver.lat ,driver.lng ]);
+			}
+			//console.log(driversDataArray);
+			 
+			res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+			 
+		} catch (err) {}
+	    
 	})    
     });
 
