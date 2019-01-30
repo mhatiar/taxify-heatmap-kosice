@@ -1,0 +1,34 @@
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+
+<script>
+
+  var setMapPosition = <%- JSON.stringify(mapPosition) %>; 
+  
+  var map = L.map('map').setView([setMapPosition[0], setMapPosition[1]], 13); 
+  var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  	maxZoom: 17,
+	minZoom: 2,
+  	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  
+  var heatOptions = {
+			tileOpacity: 1,
+			heatOpacity: 1,
+			scaleRadius: true,			
+			radius: 30,
+			blur: 15
+		};
+		
+	 var baselayers = {
+		"OpenStreetMap Mapnik":osm_mapnik
+	};
+
+	var drvrs = <% if (typeof(drivers) !== 'undefined') { %>
+	<%- JSON.stringify(drivers) %>
+	<% } %>
+	
+	for (var driverMark of drvrs){
+		var marker = L.marker([driverMark[0], driverMark[1]]).addTo(map);;
+	}
+  
+</script>
