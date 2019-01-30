@@ -28,6 +28,7 @@ if (cluster.isMaster) {
     var bodyParser = require('body-parser');
 	const dataRet = require("./lib/retrieve");
 	const driversRet = require("./lib/retrieveDrivers");
+//	const driversRetBa = require("./lib/retrieveDriversBratislava");
 
     AWS.config.region = process.env.REGION
 
@@ -49,7 +50,8 @@ if (cluster.isMaster) {
     // index page
     app.get('/', async function(req, res) {
 	
-
+	var headTitle = "Taxify Heat Map Košice";	
+	var city = 'ke';
 	var SCALAR_E7 = 0.0000001
 	
         promise.then(async function(resultAll) {
@@ -67,7 +69,7 @@ if (cluster.isMaster) {
 	    var nightLatLngs = getDayPeakData( 'Night' )
 		
 		try {
-			 const driversData = await driversRet.RetrieveData();
+			 const driversData = await driversRet.RetrieveData(city);
 
 			var driversDataArray = [];
 			for (var driver of driversData){
@@ -75,7 +77,7 @@ if (cluster.isMaster) {
 			}
 			//console.log(driversDataArray);
 			 
-			res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+			res.render('pages/index', {headTitle: headTitle, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
 			 
 		} catch (err) {}
 		
@@ -83,7 +85,9 @@ if (cluster.isMaster) {
     });
 		
     app.get('/:weekDay',async function(req, res) {
-        	
+    
+	var headTitle = "Taxify Heat Map Košice";
+	var city = 'ke';
 	var weekDayParam = req.params.weekDay
 	var SCALAR_E7 = 0.0000001
 	
@@ -106,7 +110,7 @@ if (cluster.isMaster) {
 	    var nightLatLngs = getDayPeakData( 'Night' )
 		
 		try {
-			const driversData = await driversRet.RetrieveData();
+			const driversData = await driversRet.RetrieveData(city);
 
 			var driversDataArray = [];
 			for (var driver of driversData){
@@ -114,11 +118,43 @@ if (cluster.isMaster) {
 			}
 			//console.log(driversDataArray);
 			 
-			res.render('pages/index', {morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+			res.render('pages/index', {headTitle: headTitle, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
 			 
 		} catch (err) {}
 	    
 	})    
+    });
+	
+	app.get('/drivers/:city',async function(req, res) {
+        	
+	var city = req.params.city
+	
+	//var defaultMapPosition = [];
+	//var kosicePosition = [48.7171, 21.2494];
+	//var bratislavaPosition = [48.1485, 17.1077];
+	if(city == "ba"){
+		var defaultMapPosition =  [48.1485, 17.1077];
+		var headTitle = "Taxify Driver Position Map Bratislava";
+	}
+	
+	if(city == "ke"){
+		var defaultMapPosition = [48.7171, 21.2494];
+		var headTitle = "Taxify Driver Position Map Košice";
+	}
+		
+	try {
+		const driversData = await driversRet.RetrieveData(city);
+
+		var driversDataArray = [];
+		for (var driver of driversData){
+			driversDataArray.push([driver.lat ,driver.lng ]);
+		}
+		//console.log(driversDataArray);
+			 
+		res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray});
+			 
+	} catch (err) {}
+	      
     });
 
     var port = process.env.PORT || 3000;
