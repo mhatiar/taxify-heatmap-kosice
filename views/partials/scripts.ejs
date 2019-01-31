@@ -7,7 +7,9 @@
 
 
 <script>
-  var map = L.map('map').setView([48.7170, 21.2494], 13); 
+  var map = L.map('map').setView([48.7170, 21.2494], 13);
+  var d = new Date();
+  var hr = d.getHours();
   var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   	maxZoom: 17,
 	minZoom: 2,
@@ -37,12 +39,17 @@
 	<%- JSON.stringify(drivers) %>
 	<% } %>
 	
-	var moringData = L.heatLayer(morningAddressPoints, heatOptions).addTo(map),
-		noonData = L.heatLayer(noonAddressPoints, heatOptions).addTo(map),
-		afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions).addTo(map),
-		eveningData = L.heatLayer(eveningAddressPoints, heatOptions).addTo(map),
-		nightData = L.heatLayer(nightAddressPoints, heatOptions).addTo(map);
-
+	var moringData = L.heatLayer(morningAddressPoints, heatOptions),
+	noonData = L.heatLayer(noonAddressPoints, heatOptions),
+	afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions),
+	eveningData = L.heatLayer(eveningAddressPoints, heatOptions),
+	nightData = L.heatLayer(nightAddressPoints, heatOptions);
+		
+	if(hr >= 5  && hr <= 10){ moringData.addTo(map); }
+	if(hr > 10  && hr < 14){ noonData.addTo(map);  }
+	if(hr >= 14  && hr < 18){ afternoonData.addTo(map);  }
+	if(hr >= 18  && hr < 22){ eveningData.addTo(map);  }
+	if(hr < 5 || hr >= 22){ nightData.addTo(map);  }
 	
 	var layers = {
 	"Peak Heat Layers":{
