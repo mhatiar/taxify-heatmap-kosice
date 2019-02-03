@@ -3,6 +3,7 @@
 <script src="leaflet.heat.min.js"></script>
 <script src="leaflet-heat.js"></script>  
 <script src="groupLayerPanel.js"></script>  
+<script src="customButton.js"></script>  
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 
@@ -62,10 +63,15 @@
 	};
 	
 	L.control.groupedLayers(baselayers, layers).addTo(map);
-	L.control.locate().addTo(map);
+	<!-- L.control.locate().addTo(map); -->
+	L.control.scale().addTo(map);
 	
 	for (var driverMark of drvrs){
 		var marker = L.marker([driverMark[0], driverMark[1]]).addTo(map);;
-	}
+	};
+	
+	L.control.custombutton({ text: 'KE', link: '../' }).addTo(map);
+	L.control.custombutton({ text: 'BA', link: '../drivers/ba' }).addTo(map);
+	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
   
 </script>

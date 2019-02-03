@@ -1,4 +1,5 @@
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+<script src="../customButton.js"></script> 
 
 <script>
 
@@ -30,5 +31,9 @@
 	for (var driverMark of drvrs){
 		var marker = L.marker([driverMark[0], driverMark[1]]).addTo(map);;
 	}
+	
+	L.control.custombutton({ text: 'KE', link: '../' }).addTo(map);
+	L.control.custombutton({ text: 'BA', link: '../drivers/ba' }).addTo(map);
+	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
   
 </script>
