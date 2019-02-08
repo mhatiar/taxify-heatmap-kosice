@@ -194,6 +194,13 @@ if (cluster.isMaster) {
 		var defaultMapPosition = [48.7171, 21.2494];
 		var headTitle = "Taxify Driver Position Map Košice";
 	}
+	
+	if(city == "po"){
+		var defaultMapPosition = [49.0024, 21.2396];
+		var headTitle = "Taxify Driver Position Map Prešov";
+	}
+	
+	
 		
 	try {
 		const driversData = await driversRet.RetrieveData(city);

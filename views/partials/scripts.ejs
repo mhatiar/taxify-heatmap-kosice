@@ -70,8 +70,9 @@
 		var marker = L.marker([driverMark[0], driverMark[1]]).addTo(map);;
 	};
 	
+	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
 	L.control.custombutton({ text: 'KE', link: '../' }).addTo(map);
 	L.control.custombutton({ text: 'BA', link: '../drivers/ba' }).addTo(map);
-	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
+	L.control.custombutton({ text: 'PO', link: '../drivers/po' }).addTo(map);
   
 </script>
