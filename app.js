@@ -185,6 +185,7 @@ if (cluster.isMaster) {
 	//var defaultMapPosition = [];
 	//var kosicePosition = [48.7171, 21.2494];
 	//var bratislavaPosition = [48.1485, 17.1077];
+
 	if(city == "ba"){
 		var defaultMapPosition =  [48.1485, 17.1077];
 		var headTitle = "Taxify Driver Position Map Bratislava";
@@ -197,6 +198,14 @@ if (cluster.isMaster) {
 	
 	if(city == "po"){
 		var defaultMapPosition = [49.0024, 21.2396];
+		var headTitle = "Taxify Driver Position Map Prešov";
+	}
+	if(city == "za"){
+		var defaultMapPosition = [49.2230, 18.7396];
+		var headTitle = "Taxify Driver Position Map Prešov";
+	}
+	if(city == "nr"){
+		var defaultMapPosition = [48.3098, 18.0858];
 		var headTitle = "Taxify Driver Position Map Prešov";
 	}
 	
