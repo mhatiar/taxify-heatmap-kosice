@@ -4,6 +4,7 @@
 <script src="leaflet-heat.js"></script>  
 <script src="groupLayerPanel.js"></script>  
 <script src="customButton.js"></script>  
+<script src="leaflet-sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 
@@ -74,5 +75,10 @@
 	L.control.custombutton({ text: 'KE', link: '../' }).addTo(map);
 	L.control.custombutton({ text: 'BA', link: '../drivers/ba' }).addTo(map);
 	L.control.custombutton({ text: 'PO', link: '../drivers/po' }).addTo(map);
-  
+	
+	var sidebar = L.control.sidebar('sidebar', {
+		position: 'left'
+	});
+	map.addControl(sidebar);
+
 </script>
