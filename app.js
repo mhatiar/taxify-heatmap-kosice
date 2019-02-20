@@ -202,11 +202,11 @@ if (cluster.isMaster) {
 	}
 	if(city == "za"){
 		var defaultMapPosition = [49.2230, 18.7396];
-		var headTitle = "Taxify Driver Position Map Prešov";
+		var headTitle = "Taxify Driver Position Map Žilina";
 	}
 	if(city == "nr"){
 		var defaultMapPosition = [48.3098, 18.0858];
-		var headTitle = "Taxify Driver Position Map Prešov";
+		var headTitle = "Taxify Driver Position Map Nitra";
 	}
 	
 	
