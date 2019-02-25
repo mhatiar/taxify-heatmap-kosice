@@ -38,6 +38,7 @@ if (cluster.isMaster) {
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(express.static('js'));
+	app.use(express.static('img/favicon'));
 	
     const promise = new Promise(function(resolve, reject) {
     // retrieve the data from API
