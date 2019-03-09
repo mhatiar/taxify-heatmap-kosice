@@ -209,6 +209,10 @@ if (cluster.isMaster) {
 		var defaultMapPosition = [48.3098, 18.0858];
 		var headTitle = "Taxify Driver Position Map Nitra";
 	}
+	if(city == "bb"){
+		var defaultMapPosition = [48.7383, 19.1571];
+		var headTitle = "Taxify Driver Position Map Banksk̉á Bystrica";
+	}
 	
 	
 		
