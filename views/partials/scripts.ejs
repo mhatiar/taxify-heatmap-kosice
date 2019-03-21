@@ -1,14 +1,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
-<script src="leaflet.heat.min.js"></script>
-<script src="leaflet-heat.js"></script>  
-<script src="groupLayerPanel.js"></script>  
-<script src="customButton.js"></script>  
+<script src="../leaflet.heat.min.js"></script>
+<script src="../leaflet-heat.js"></script>  
+<script src="../groupLayerPanel.js"></script>  
+<script src="../customButton.js"></script>  
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 
 <script>
-  var map = L.map('map').setView([48.7170, 21.2494], 13);
+  
+  var setMapPosition = <%- JSON.stringify(mapPosition) %>; 
+
+  var map = L.map('map').setView([setMapPosition[0], setMapPosition[1]], 13);
   var d = new Date();
   var hr = d.getHours();
   var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -77,5 +80,6 @@
 	L.control.custombutton({ text: 'ZA', link: '../drivers/za' }).addTo(map);
 	L.control.custombutton({ text: 'NR', link: '../drivers/nr' }).addTo(map);
 	L.control.custombutton({ text: 'BB', link: '../drivers/bb' }).addTo(map);
+	L.control.custombutton({ text: 'TT', link: '../drivers/tt' }).addTo(map);
   
 </script>
