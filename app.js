@@ -141,7 +141,7 @@ if (cluster.isMaster) {
 			driversDataArray.push([driver.lat ,driver.lng ]);
 		}		
 		
-		if(city == "bb"){
+		if(city == "bb" || city == "ba"){
 		
 			var a = new time.Date();
 			var d = a.setTimezone('Europe/Bratislava');
