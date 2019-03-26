@@ -1,17 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var time = require('time');
-const dataRet = require("../lib/retrieve");
 const driversRet = require("../lib/retrieveDrivers");
 var router = express.Router();
-
-const promise = new Promise(function(resolve, reject) {
-   // retrieve the data from API
-   const locationData = dataRet.RetrieveData();
-   console.log(locationData);
-   resolve(locationData);
-  
-});
 
 
 /* GET home page. */
@@ -33,6 +24,7 @@ router.get('/', function(req, res, next) {
 	
 	var weekDayParam = wd[d.getDay()];
 	var SCALAR_E7 = 0.0000001
+	var promise = req.app.get('promise');
 	
         promise.then(async function(resultAll) {
 	    var locations = resultAll[0]["locations"];

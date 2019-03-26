@@ -1,5 +1,6 @@
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
 <script src="../customButton.js"></script> 
+<script src="../leaflet.awesome-markers.js"></script>
 
 <script>
 
@@ -28,8 +29,15 @@
 	<%- JSON.stringify(drivers) %>
 	<% } %>
 	
+	<!-- Creates a red marker with the coffee icon -->
+	var greenMarker = L.AwesomeMarkers.icon({
+		icon: 'car',
+		prefix: 'fa',
+		markerColor: 'darkgreen'
+	});
+	
 	for (var driverMark of drvrs){
-		var marker = L.marker([driverMark[0], driverMark[1]]).addTo(map);;
+		var marker = L.marker([driverMark[0], driverMark[1]],{icon: greenMarker}).addTo(map);;
 	}
 	
 	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
