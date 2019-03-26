@@ -44,7 +44,7 @@ if (cluster.isMaster) {
     app.use(express.static('js'));
 	app.use(express.static('css'));
 	app.use(express.static('img/favicon'));
-	app.use(express.static('img/markerIcon'));
+	app.use(express.static('img/sharepicture'));
 	
 	//We cache the location data as it takes 8 seconds to load. So that It is loaded when the app is installed.
     const promise = new Promise(function(resolve, reject) {
