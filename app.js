@@ -29,6 +29,7 @@ if (cluster.isMaster) {
 	var time = require('time');
 	const dataRet = require("./lib/retrieve");
 	const driversRet = require("./lib/retrieveDrivers");
+	const wazeRet = require("./lib/retrieveWaze");
 	
     AWS.config.region = process.env.REGION
 	
@@ -106,9 +107,15 @@ if (cluster.isMaster) {
 		const driversData =  await driversRet.RetrieveData(city);
 
 		var driversDataArray = [];
-		var policeDataArray = [];
 		for (var driver of driversData){
 			driversDataArray.push([driver.lat ,driver.lng ]);
+		}
+
+		const policeData = await wazeRet.RetrieveData(city);
+
+		var policeDataArray = [];
+		for (var policePatrol of policeData){
+			policeDataArray.push([policePatrol.lat ,policePatrol.lng ]);
 		}		
 		
 		if(city == "bb" || city == "ba" || city == "ke"){
@@ -138,20 +145,26 @@ if (cluster.isMaster) {
 					return result.filter(function (item) {  return item.timeOfDay === peakPeriod;})
 					.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
 				}
-			
-				var morningLatLngs = getDayPeakData( 'Morning' )
-				var noonLatLngs = getDayPeakData( 'Noon' )
-				var afternoonLatLngs = getDayPeakData( 'Afternoon' )
-				var eveningLatLngs = getDayPeakData( 'Evening' )
-				var nightLatLngs = getDayPeakData( 'Night' )
+
+				var pageData = { 
+					headTitle: headTitle, 
+					mapPosition: defaultMapPosition, 
+					morning: getDayPeakData( 'Morning' ), 
+					noon: getDayPeakData( 'Noon' ), 
+					afternoon: getDayPeakData( 'Afternoon' ), 
+					evening: getDayPeakData( 'Evening' ), 
+					night: getDayPeakData( 'Night' ), 
+					drivers: driversDataArray,
+					police: policeDataArray
+				}
 				
 				
-				res.render('pages/index', {headTitle: headTitle, mapPosition: defaultMapPosition, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray,	police: policeDataArray});
+				res.render('pages/index', pageData);
 			}) 
 						
 		} else { 
 			 
-			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray});
+			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray});
 				
 		}
 		
