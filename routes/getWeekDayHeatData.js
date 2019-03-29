@@ -11,7 +11,7 @@ router.get('/:weekDay', function(req, res, next) {
 	var weekDayParam = req.params.weekDay
 	var promise = req.app.get('promise');
 	
-	var headTitle = "Taxify Heat Map Košice";
+	var headTitle = "Bolt Heat Map Košice";
 	var city = 'ke';
 	var defaultMapPosition = [48.7171, 21.2494];
 	var SCALAR_E7 = 0.0000001
@@ -27,22 +27,29 @@ router.get('/:weekDay', function(req, res, next) {
 	        return result.filter(function (item) {  return item.timeOfDay === peakPeriod;})
 			.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
 	    }
-	
-	    var morningLatLngs = getDayPeakData( 'Morning' )
-	    var noonLatLngs = getDayPeakData( 'Noon' )
-	    var afternoonLatLngs = getDayPeakData( 'Afternoon' )
-	    var eveningLatLngs = getDayPeakData( 'Evening' )
-	    var nightLatLngs = getDayPeakData( 'Night' )
 		
 		try {
 			const driversData = await driversRet.RetrieveData(city);
 
 			var driversDataArray = [];
+			var policeDataArray = [];
 			for (var driver of driversData){
 				driversDataArray.push([driver.lat ,driver.lng ]);
 			}
+			
+				var pageData = { 
+					headTitle: headTitle, 
+					mapPosition: defaultMapPosition, 
+					morning: getDayPeakData( 'Morning' ), 
+					noon:  getDayPeakData( 'Noon' ), 
+					afternoon: getDayPeakData( 'Afternoon' ), 
+					evening: getDayPeakData( 'Evening' ), 
+					night: getDayPeakData( 'Night' ), 
+					drivers: driversDataArray,
+					police: policeDataArray
+				}
 			 
-			res.render('pages/index', {headTitle: headTitle, mapPosition: defaultMapPosition, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+			res.render('pages/index', pageData );
 			 
 		} catch (err) {}
 	    

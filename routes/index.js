@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var time = require('time');
 const driversRet = require("../lib/retrieveDrivers");
+const wazeRet = require("../lib/retrieveWaze");
 var router = express.Router();
 
 
@@ -37,22 +38,36 @@ router.get('/', function(req, res, next) {
 	        return result.filter(function (item) {  return item.timeOfDay === peakPeriod;})
 			.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
 	    }
-	
-	    var morningLatLngs = getDayPeakData( 'Morning' )
-	    var noonLatLngs = getDayPeakData( 'Noon' )
-	    var afternoonLatLngs = getDayPeakData( 'Afternoon' )
-	    var eveningLatLngs = getDayPeakData( 'Evening' )
-	    var nightLatLngs = getDayPeakData( 'Night' )
 		
 		try {
 			const driversData = await driversRet.RetrieveData(city);
 
 			var driversDataArray = [];
+			var policeDataArray = [];
 			for (var driver of driversData){
 				driversDataArray.push([driver.lat ,driver.lng ]);
 			}
+			
+			const policeData = await wazeRet.RetrieveData(city);
+
+			var policeDataArray = [];
+			for (var policePatrol of policeData){
+				policeDataArray.push([policePatrol.lat ,policePatrol.lng ]);
+			}
+			
+				var pageData = { 
+					headTitle: headTitle, 
+					mapPosition: defaultMapPosition, 
+					morning: getDayPeakData( 'Morning' ), 
+					noon: getDayPeakData( 'Noon' ), 
+					afternoon: getDayPeakData( 'Afternoon' ), 
+					evening: getDayPeakData( 'Evening' ), 
+					night: getDayPeakData( 'Night' ), 
+					drivers: driversDataArray,
+					police: policeDataArray
+				}
 			 
-			res.render('pages/index', {headTitle: headTitle, mapPosition: defaultMapPosition, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+			res.render('pages/index', pageData);
 			 
 		} catch (err) {}
 	    

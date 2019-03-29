@@ -36,6 +36,7 @@ if (cluster.isMaster) {
 	var allHeatDataRouter = require('./routes/allHeatData');
 	var weekDayDataRouter = require('./routes/getWeekDayHeatData');
 	var heatPerCityRouter = require('./routes/getCityHeatData');
+	var wazeDataRouter = require('./routes/getWazeData');
     var app = express();
 
     app.set('view engine', 'ejs');
@@ -60,40 +61,43 @@ if (cluster.isMaster) {
 	app.use('/', indexRouter);
 	app.use('/all', allHeatDataRouter);
 	app.use('/', weekDayDataRouter);
+	app.use('/waze', wazeDataRouter);
 	//app.use('/drivers', heatPerCityRouter);
 	app.get('/drivers/:city', async function(req, res) { 
 	
 	var city = req.params.city
+	var defaultMapPosition
+	var headTitle
 
 	if(city == "ba"){
-		var defaultMapPosition =  [48.1485, 17.1077];
+		defaultMapPosition =  [48.1485, 17.1077];
 		var headTitle = "Bolt Driver Position Map Bratislava";
 	}
 	
 	if(city == "ke"){
-		var defaultMapPosition = [48.7171, 21.2494];
-		var headTitle = "Bolt Driver Position Map Košice";
+		defaultMapPosition = [48.7171, 21.2494];
+		headTitle = "Bolt Driver Position Map Košice";
 	}
 	
 	if(city == "po"){
-		var defaultMapPosition = [49.0024, 21.2396];
-		var headTitle = "Bolt Driver Position Map Prešov";
+		defaultMapPosition = [49.0024, 21.2396];
+		headTitle = "Bolt Driver Position Map Prešov";
 	}
 	if(city == "za"){
-		var defaultMapPosition = [49.2230, 18.7396];
-		var headTitle = "Bolt Driver Position Map Žilina";
+		defaultMapPosition = [49.2230, 18.7396];
+		headTitle = "Bolt Driver Position Map Žilina";
 	}
 	if(city == "nr"){
-		var defaultMapPosition = [48.3098, 18.0858];
-		var headTitle = "Bolt Driver Position Map Nitra";
+		defaultMapPosition = [48.3098, 18.0858];
+		headTitle = "Bolt Driver Position Map Nitra";
 	}
 	if(city == "tt"){
-		var defaultMapPosition = [48.3734, 17.5950];
-		var headTitle = "Bolt Driver Position Map Trnava";
+		defaultMapPosition = [48.3734, 17.5950];
+		headTitle = "Bolt Driver Position Map Trnava";
 	}
 	if(city == "bb"){
-		var defaultMapPosition = [48.7383, 19.1571];
-		var headTitle = "Bolt Driver Position Map Banksk̉á Bystrica";
+		defaultMapPosition = [48.7383, 19.1571];
+		headTitle = "Bolt Driver Position Map Banksk̉á Bystrica";
 	}
 	
 	
@@ -102,11 +106,12 @@ if (cluster.isMaster) {
 		const driversData =  await driversRet.RetrieveData(city);
 
 		var driversDataArray = [];
+		var policeDataArray = [];
 		for (var driver of driversData){
 			driversDataArray.push([driver.lat ,driver.lng ]);
 		}		
 		
-		if(city == "bb" || city == "ba"){
+		if(city == "bb" || city == "ba" || city == "ke"){
 		
 			var a = new time.Date();
 			var d = a.setTimezone('Europe/Bratislava');
@@ -140,7 +145,8 @@ if (cluster.isMaster) {
 				var eveningLatLngs = getDayPeakData( 'Evening' )
 				var nightLatLngs = getDayPeakData( 'Night' )
 				
-				res.render('pages/index', {headTitle: headTitle, mapPosition: defaultMapPosition, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray});
+				
+				res.render('pages/index', {headTitle: headTitle, mapPosition: defaultMapPosition, morning: morningLatLngs, noon: noonLatLngs, afternoon: afternoonLatLngs, evening: eveningLatLngs, night: nightLatLngs, drivers: driversDataArray,	police: policeDataArray});
 			}) 
 						
 		} else { 
