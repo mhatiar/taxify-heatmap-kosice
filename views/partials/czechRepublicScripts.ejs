@@ -1,0 +1,32 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+<script src="../leaflet.heat.min.js"></script>
+<script src="../leaflet-heat.js"></script>  
+<script src="../groupLayerPanel.js"></script>  
+<script src="../customButton.js"></script>  
+<script src="../countryButtonCountry.js"></script>
+<script src="../leaflet.awesome-markers.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+
+<script>
+  
+  var setMapPosition = <%- JSON.stringify(mapPosition) %>;  
+
+  var map = L.map('map').setView([setMapPosition[0], setMapPosition[1]], 13);
+  var d = new Date();
+  var hr = d.getHours();
+  var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  	maxZoom: 17,
+	minZoom: 2,
+  	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  
+
+  
+	L.control.scale().addTo(map);
+	
+	L.control.custombutton({ text: 'PRG', link: '../drivers/prg' }).addTo(map);
+
+</script>

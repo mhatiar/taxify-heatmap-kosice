@@ -47,6 +47,7 @@ if (cluster.isMaster) {
 	app.use(express.static('css'));
 	app.use(express.static('img/favicon'));
 	app.use(express.static('img/sharepicture'));
+	app.use(express.static('img/countryicons'));
 	
 	//We cache the location data as it takes 8 seconds to load. So that It is loaded when the app is installed.
     const promise = new Promise(function(resolve, reject) {
@@ -100,9 +101,15 @@ if (cluster.isMaster) {
 		defaultMapPosition = [48.7383, 19.1571];
 		headTitle = "Bolt Driver Position Map Banksk̉á Bystrica";
 	}
+	if(city == "prg"){
+		defaultMapPosition = [50.0870, 14.4210];
+		headTitle = "Bolt Hotspot Map Prague";
+
+		res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition});
+
+
+	}
 	
-	
-		
 	try {
 		const driversData =  await driversRet.RetrieveData(city);
 
@@ -162,7 +169,8 @@ if (cluster.isMaster) {
 				res.render('pages/index', pageData);
 			}) 
 						
-		} else { 
+		}
+		else { 
 			 
 			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray});
 				
