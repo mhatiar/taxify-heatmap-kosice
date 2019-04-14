@@ -58,6 +58,7 @@ router.get('/', function(req, res, next) {
 				var pageData = { 
 					headTitle: headTitle, 
 					mapPosition: defaultMapPosition, 
+					city: city,
 					morning: getDayPeakData( 'Morning' ), 
 					noon: getDayPeakData( 'Noon' ), 
 					afternoon: getDayPeakData( 'Afternoon' ), 

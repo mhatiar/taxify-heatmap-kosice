@@ -151,7 +151,8 @@ if (cluster.isMaster) {
 				}
 
 				var pageData = { 
-					headTitle: headTitle, 
+					headTitle: headTitle,
+					city: city, 
 					mapPosition: defaultMapPosition, 
 					morning: getDayPeakData( 'Morning' ), 
 					noon: getDayPeakData( 'Noon' ), 
@@ -168,11 +169,11 @@ if (cluster.isMaster) {
 						
 		}
 		else if(city == "prg"){ 
-			res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition, police: policeDataArray, drivers: driversDataArray});
+			res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition, police: policeDataArray, drivers: driversDataArray, city: city});
 		}
 		else { 
 			 
-			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray});
+			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city});
 				
 		}
 		
