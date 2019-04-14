@@ -101,13 +101,10 @@ if (cluster.isMaster) {
 		defaultMapPosition = [48.7383, 19.1571];
 		headTitle = "Bolt Driver Position Map Banksk̉á Bystrica";
 	}
+	
 	if(city == "prg"){
 		defaultMapPosition = [50.0870, 14.4210];
 		headTitle = "Bolt Hotspot Map Prague";
-
-		res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition});
-
-
 	}
 	
 	try {
@@ -142,7 +139,7 @@ if (cluster.isMaster) {
 			var SCALAR_E7 = 0.0000001
 
 			promise.then(async function(resultAll) {
-				var locations = resultAll[0]["locations"];
+				var locations = resultAll[0]["locations"]
 				
 				var result = locations.filter(function (item) {
 					return item.weekDay === weekDayParam;
@@ -169,6 +166,9 @@ if (cluster.isMaster) {
 				res.render('pages/index', pageData);
 			}) 
 						
+		}
+		else if(city == "prg"){ 
+			res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition, police: policeDataArray, drivers: driversDataArray});
 		}
 		else { 
 			 

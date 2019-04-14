@@ -22,11 +22,39 @@
 	minZoom: 2,
   	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
-  
 
+  var drvrs = <% if (typeof(drivers) !== 'undefined') { %>
+	<%- JSON.stringify(drivers) %>
+	<% } %>
+
+  var policePositions = <% if (typeof(police) !== 'undefined') { %>
+	<%- JSON.stringify(police) %>
+  <% } %>
   
-	L.control.scale().addTo(map);
-	
+  var policeMarkerSettings = L.AwesomeMarkers.icon({
+		icon: 'user-shield',
+		prefix: 'fa',
+		markerColor: 'cadetblue',
+		title: 'Policajná hliadka'
+  });
+  
+  var driverMarkerSettings = L.AwesomeMarkers.icon({
+		icon: 'car',
+		prefix: 'fa',
+		markerColor: 'darkgreen'
+	});
+  
+	for (var driverMark of drvrs){
+		var marker = L.marker([driverMark[0], driverMark[1]],{icon: driverMarkerSettings}).addTo(map);
+	};
+
+  for (var policeMark of policePositions){
+		var marker = L.marker([policeMark[0], policeMark[1]],{icon: policeMarkerSettings}).addTo(map);
+  }; 
+  
+  L.control.scale().addTo(map);
+  
+	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
 	L.control.custombutton({ text: 'PRG', link: '../drivers/prg' }).addTo(map);
 
 </script>
