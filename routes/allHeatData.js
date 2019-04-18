@@ -27,16 +27,17 @@ router.get('/', function(req, res, next) {
 	    var nightLatLngs = getDayPeakData( 'Night' )
 		
 		try {
-			 const driversData = await driversRet.RetrieveData(city);
+			 //const driversData = await driversRet.RetrieveData(city);
 
 			var driversDataArray = [];
 			var policeDataArray = [];
-			for (var driver of driversData){
-				driversDataArray.push([driver.lat ,driver.lng ]);
-			}
+			//for (var driver of driversData){
+			//	driversDataArray.push([driver.lat ,driver.lng ]);
+			//}
 			
 			var pageData = { 
 					headTitle: headTitle, 
+					city: city,
 					mapPosition: defaultMapPosition, 
 					morning: morningLatLngs, 
 					noon: noonLatLngs, 

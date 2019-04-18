@@ -21,7 +21,25 @@
   	maxZoom: 17,
 	minZoom: 2,
   	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
+	}).addTo(map);
+	
+	  var heatOptions = {
+			tileOpacity: 1,
+			heatOpacity: 1,
+			scaleRadius: true,			
+			radius: 30,
+			blur: 15
+		};
+		
+	 var baselayers = {
+		"OpenStreetMap Mapnik":osm_mapnik
+	};
+
+	var morningAddressPoints = <%- JSON.stringify(morning) %>;
+	var noonAddressPoints = <%- JSON.stringify(noon) %>;
+	var afternoonAddressPoints = <%- JSON.stringify(afternoon) %>;
+	var eveningAddressPoints = <%- JSON.stringify(evening) %>;
+	var nightAddressPoints = <%- JSON.stringify(night) %>;
 
   var drvrs = <% if (typeof(drivers) !== 'undefined') { %>
 	<%- JSON.stringify(drivers) %>
@@ -50,7 +68,31 @@
 
   for (var policeMark of policePositions){
 		var marker = L.marker([policeMark[0], policeMark[1]],{icon: policeMarkerSettings}).addTo(map);
-  }; 
+	}; 
+	
+		var moringData = L.heatLayer(morningAddressPoints, heatOptions),
+	noonData = L.heatLayer(noonAddressPoints, heatOptions),
+	afternoonData = L.heatLayer(afternoonAddressPoints, heatOptions),
+	eveningData = L.heatLayer(eveningAddressPoints, heatOptions),
+	nightData = L.heatLayer(nightAddressPoints, heatOptions);
+		
+	if(hr >= 5  && hr <= 10){ moringData.addTo(map); }
+	if(hr > 10  && hr < 14){ noonData.addTo(map);  }
+	if(hr >= 14  && hr < 18){ afternoonData.addTo(map);  }
+	if(hr >= 18  && hr < 22){ eveningData.addTo(map);  }
+	if(hr < 5 || hr >= 22){ nightData.addTo(map);  }
+	
+	var layers = {
+	"Peak Heat Layers":{
+		"Morning Peak": moringData,
+		"Noon Peak": noonData,
+		"Afternoon Peak": afternoonData,
+		"Evening Peak": eveningData,
+		"Night Peak": nightData
+	}
+	};
+	
+	L.control.groupedLayers(baselayers, layers).addTo(map);
   
   L.control.scale().addTo(map);
   

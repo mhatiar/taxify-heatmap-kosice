@@ -122,7 +122,7 @@ if (cluster.isMaster) {
 			policeDataArray.push([policePatrol.lat ,policePatrol.lng ]);
 		}		
 		
-		if(city == "bb" || city == "ba" || city == "ke"){
+		if(city == "bb" || city == "ba" || city == "ke" || city == "prg"){
 		
 			var a = new time.Date();
 			var d = a.setTimezone('Europe/Bratislava');
@@ -141,36 +141,60 @@ if (cluster.isMaster) {
 			promise.then(async function(resultAll) {
 				var locations = resultAll[0]["locations"]
 				
-				var result = locations.filter(function (item) {
+				var resultWeekDay = locations.filter(function (item) {
 					return item.weekDay === weekDayParam;
 				});
 				
-				function getDayPeakData( peakPeriod ) {
-					return result.filter(function (item) {  return item.timeOfDay === peakPeriod;})
+				function getDayPeakDataWD( peakPeriod ) {
+					return resultWeekDay.filter(function (item) {  return item.timeOfDay === peakPeriod;})
 					.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
 				}
 
-				var pageData = { 
-					headTitle: headTitle,
-					city: city, 
-					mapPosition: defaultMapPosition, 
-					morning: getDayPeakData( 'Morning' ), 
-					noon: getDayPeakData( 'Noon' ), 
-					afternoon: getDayPeakData( 'Afternoon' ), 
-					evening: getDayPeakData( 'Evening' ), 
-					night: getDayPeakData( 'Night' ), 
-					drivers: driversDataArray,
-					police: policeDataArray
+				function getDayPeakDataAll( peakPeriod ) {
+					return locations.filter(function (item) {  return item.timeOfDay === peakPeriod;})
+					.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
 				}
-				
-				
-				res.render('pages/index', pageData);
+
+				if(city == "prg"){ 
+
+					var pageData = {
+						headTitle: headTitle,
+						city: city, 
+						mapPosition: defaultMapPosition, 
+						drivers: driversDataArray,
+						police: policeDataArray,
+						morning: getDayPeakDataAll( 'Morning' ), 
+						noon: getDayPeakDataAll( 'Noon' ), 
+						afternoon: getDayPeakDataAll( 'Afternoon' ), 
+						evening: getDayPeakDataAll( 'Evening' ), 
+						night: getDayPeakDataAll( 'Night' ), 
+					}
+
+					res.render('pages/czechRepublic', pageData);
+				}
+
+				else{
+					var pageData = {
+						headTitle: headTitle,
+						city: city, 
+						mapPosition: defaultMapPosition, 
+						drivers: driversDataArray,
+						police: policeDataArray,
+						morning: getDayPeakDataWD( 'Morning' ), 
+						noon: getDayPeakDataWD( 'Noon' ), 
+						afternoon: getDayPeakDataWD( 'Afternoon' ), 
+						evening: getDayPeakDataWD( 'Evening' ), 
+						night: getDayPeakDataWD( 'Night' ), 
+					}
+
+					res.render('pages/index', pageData);
+				}
 			}) 
 						
 		}
-		else if(city == "prg"){ 
-			res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition, police: policeDataArray, drivers: driversDataArray, city: city});
-		}
+		//else if(city == "prg"){ 
+		//	res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition, police: policeDataArray, drivers: driversDataArray, city: city});
+		//}
 		else { 
 			 
 			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city});
