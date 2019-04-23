@@ -71,9 +71,11 @@ if (cluster.isMaster) {
 	var defaultMapPosition
 	var headTitle
 
+	var pageData = {};
+
 	if(city == "ba"){
 		defaultMapPosition =  [48.1485, 17.1077];
-		var headTitle = "Bolt Driver Position Map Bratislava";
+		headTitle = "Bolt Driver Position Map Bratislava";
 	}
 	
 	if(city == "ke"){
@@ -106,6 +108,11 @@ if (cluster.isMaster) {
 		defaultMapPosition = [50.0870, 14.4210];
 		headTitle = "Bolt Hotspot Map Prague";
 	}
+
+	if(city == "jnb"){
+		defaultMapPosition = [-26.1952, 28.0340];
+		headTitle = "Bolt Hotspot Map Johannesburg";
+	}
 	
 	try {
 		const driversData =  await driversRet.RetrieveData(city);
@@ -122,7 +129,7 @@ if (cluster.isMaster) {
 			policeDataArray.push([policePatrol.lat ,policePatrol.lng ]);
 		}		
 		
-		if(city == "bb" || city == "ba" || city == "ke" || city == "prg"){
+		if(city == "bb" || city == "ba" || city == "ke" || city == "prg" || city == "jnb"){
 		
 			var a = new time.Date();
 			var d = a.setTimezone('Europe/Bratislava');
@@ -155,46 +162,55 @@ if (cluster.isMaster) {
 					.map( function(item){ return [item.latitudeE7 * SCALAR_E7, item.longitudeE7 * SCALAR_E7]; })
 				}
 
-				if(city == "prg"){ 
+				pageData.headTitle = headTitle;
+				pageData.city = city;
+				pageData.mapPosition = defaultMapPosition, 
+				pageData.drivers = driversDataArray;
+				pageData.police = policeDataArray;
+				//pageData.morning = getDayPeakDataAll( 'Morning' ); 
+				//pageData.noon = getDayPeakDataAll( 'Noon' ); 
+				//pageData.afternoon = getDayPeakDataAll( 'Afternoon' );
+				//pageData.evening = getDayPeakDataAll( 'Evening' ); 
+				//pageData.night = getDayPeakDataAll( 'Night' ); 
 
-					var pageData = {
-						headTitle: headTitle,
-						city: city, 
-						mapPosition: defaultMapPosition, 
-						drivers: driversDataArray,
-						police: policeDataArray,
-						morning: getDayPeakDataAll( 'Morning' ), 
-						noon: getDayPeakDataAll( 'Noon' ), 
-						afternoon: getDayPeakDataAll( 'Afternoon' ), 
-						evening: getDayPeakDataAll( 'Evening' ), 
-						night: getDayPeakDataAll( 'Night' ), 
-					}
+				if(city === "prg"){ 
 
-					res.render('pages/czechRepublic', pageData);
+					pageData.morning = getDayPeakDataAll( 'Morning' ); 
+				 	pageData.noon = getDayPeakDataAll( 'Noon' ); 
+				 	pageData.afternoon = getDayPeakDataAll( 'Afternoon' );
+				 	pageData.evening = getDayPeakDataAll( 'Evening' ); 
+				 	pageData.night = getDayPeakDataAll( 'Night' ); 
+
+				 	res.render('pages/czechRepublic', pageData);
 				}
 
+				else if (city === "jnb"){
+					pageData.morning = getDayPeakDataAll( 'Morning' ); 
+					pageData.noon = getDayPeakDataAll( 'Noon' ); 
+					pageData.afternoon = getDayPeakDataAll( 'Afternoon' );
+					pageData.evening = getDayPeakDataAll( 'Evening' ); 
+					pageData.night = getDayPeakDataAll( 'Night' );
+					
+					pageData.drivers = [];
+					pageData.police = [];
+					
+					res.render('pages/southAfricaRepublic', pageData);
+				}
+
+
 				else{
-					var pageData = {
-						headTitle: headTitle,
-						city: city, 
-						mapPosition: defaultMapPosition, 
-						drivers: driversDataArray,
-						police: policeDataArray,
-						morning: getDayPeakDataWD( 'Morning' ), 
-						noon: getDayPeakDataWD( 'Noon' ), 
-						afternoon: getDayPeakDataWD( 'Afternoon' ), 
-						evening: getDayPeakDataWD( 'Evening' ), 
-						night: getDayPeakDataWD( 'Night' ), 
-					}
+
+					pageData.morning = getDayPeakDataWD( 'Morning' ); 
+					pageData.noon = getDayPeakDataWD( 'Noon' ); 
+					pageData.afternoon = getDayPeakDataWD( 'Afternoon' );
+					pageData.evening = getDayPeakDataWD( 'Evening' ); 
+					pageData.night = getDayPeakDataWD( 'Night' ); 
 
 					res.render('pages/index', pageData);
 				}
 			}) 
 						
 		}
-		//else if(city == "prg"){ 
-		//	res.render('pages/czechRepublic', {headTitle: headTitle, mapPosition: defaultMapPosition, police: policeDataArray, drivers: driversDataArray, city: city});
-		//}
 		else { 
 			 
 			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city});
