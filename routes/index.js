@@ -67,6 +67,9 @@ router.get('/', function(req, res, next) {
 					drivers: driversDataArray,
 					police: policeDataArray
 				}
+
+				pageData.description = "Chcete sa vyhnúť nekonečným prestojom vo Vašom meste, alebo ste sa ocitli v časti mesta ktoré nepoznáte a nechcete prejazdiť kopec kilometrov navyše ? Mapa hotspotov tento problém výrieši a zvýši Vaše zisky, pomôže Vám odhadnúť odkial príde ďalšia objednávka."
+				pageData.siteName = "Horúce miesta vo Vašom meste";
 			 
 			res.render('pages/index', pageData);
 			 

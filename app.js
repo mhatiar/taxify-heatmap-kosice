@@ -72,6 +72,8 @@ if (cluster.isMaster) {
 	var headTitle
 
 	var pageData = {};
+	pageData.description = "Chcete sa vyhnúť nekonečným prestojom vo Vašom meste, alebo ste sa ocitli v časti mesta ktoré nepoznáte a nechcete prejazdiť kopec kilometrov navyše ? Mapa hotspotov tento problém výrieši a zvýši Vaše zisky, pomôže Vám odhadnúť odkial príde ďalšia objednávka."
+	pageData.siteName = "Horúce miesta vo Vašom meste"; 
 
 	if(city == "ba"){
 		defaultMapPosition =  [48.1485, 17.1077];
@@ -179,7 +181,7 @@ if (cluster.isMaster) {
 				 	pageData.noon = getDayPeakDataAll( 'Noon' ); 
 				 	pageData.afternoon = getDayPeakDataAll( 'Afternoon' );
 				 	pageData.evening = getDayPeakDataAll( 'Evening' ); 
-				 	pageData.night = getDayPeakDataAll( 'Night' ); 
+					pageData.night = getDayPeakDataAll( 'Night' ); 
 
 				 	res.render('pages/czechRepublic', pageData);
 				}
@@ -190,6 +192,8 @@ if (cluster.isMaster) {
 					pageData.afternoon = getDayPeakDataAll( 'Afternoon' );
 					pageData.evening = getDayPeakDataAll( 'Evening' ); 
 					pageData.night = getDayPeakDataAll( 'Night' );
+					pageData.siteName = "Hot Spots in your city";
+					pageData.description = "If you don't want wait for the next ride request forever, hotspot map will help you to find places where the demand for the ride is highest ";
 					
 					pageData.drivers = [];
 					pageData.police = [];
@@ -204,7 +208,7 @@ if (cluster.isMaster) {
 					pageData.noon = getDayPeakDataWD( 'Noon' ); 
 					pageData.afternoon = getDayPeakDataWD( 'Afternoon' );
 					pageData.evening = getDayPeakDataWD( 'Evening' ); 
-					pageData.night = getDayPeakDataWD( 'Night' ); 
+					pageData.night = getDayPeakDataWD( 'Night' );
 
 					res.render('pages/index', pageData);
 				}
@@ -213,7 +217,7 @@ if (cluster.isMaster) {
 		}
 		else { 
 			 
-			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city});
+			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city, siteName: pageData.siteName, description: pageData.description  });
 				
 		}
 		
