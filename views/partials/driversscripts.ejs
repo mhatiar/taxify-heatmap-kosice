@@ -13,18 +13,6 @@
 	minZoom: 2,
   	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
-  
-  var heatOptions = {
-			tileOpacity: 1,
-			heatOpacity: 1,
-			scaleRadius: true,			
-			radius: 30,
-			blur: 15
-		};
-		
-	 var baselayers = {
-		"OpenStreetMap Mapnik":osm_mapnik
-	};
 
 	var drvrs = <% if (typeof(drivers) !== 'undefined') { %>
 	<%- JSON.stringify(drivers) %>

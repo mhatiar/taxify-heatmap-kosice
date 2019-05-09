@@ -3,6 +3,7 @@
 <script src="../leaflet.heat.min.js"></script>
 <script src="../leaflet-heat.js"></script>  
 <script src="../groupLayerPanel.js"></script>  
+<script src="../helpButton.js"></script>
 <script src="../customButton.js"></script>
 <script src="../countryButtonCountry.js"></script>  
 <script src="../donateButton.js"></script>
@@ -74,7 +75,7 @@
 	};
 
 	L.control.CustomButtonDonate({ text: '..', link: '' }).addTo(map);
-	
+	L.control.HelpInfoButton({ text: '??'}).addTo(map);	
 	L.control.groupedLayers(baselayers, layers).addTo(map);
 	<!-- L.control.locate().addTo(map); -->
 	L.control.scale().addTo(map);
@@ -108,5 +109,19 @@
 	L.control.custombutton({ text: 'NR', link: '../drivers/nr' }).addTo(map);
 	L.control.custombutton({ text: 'BB', link: '../drivers/bb' }).addTo(map);
 	L.control.custombutton({ text: 'TT', link: '../drivers/tt' }).addTo(map);
+
+	$( '#launch' ).click( function () {
+
+		  $( 'body' ).addClass( 'map-active' );
+		  $( '#intro' ).addClass( 'hidden' );
+        
+	} );
+	
+	$( '#help' ).click( function () {
+
+		  $( 'body' ).removeClass( 'map-active' );
+		  $( '#intro' ).removeClass( 'hidden' );
+        
+    } );
 
 </script>

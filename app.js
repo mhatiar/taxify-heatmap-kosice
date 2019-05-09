@@ -44,7 +44,7 @@ if (cluster.isMaster) {
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(express.static('js'));
-	app.use(express.static('css'));
+	app.use('/css', express.static('css'))
 	app.use(express.static('img/favicon'));
 	app.use(express.static('img/sharepicture'));
 	app.use(express.static('img/countryicons'));
