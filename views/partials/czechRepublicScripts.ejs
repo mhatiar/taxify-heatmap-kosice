@@ -5,6 +5,7 @@
 <script src="../groupLayerPanel.js"></script>  
 <script src="../customButton.js"></script>  
 <script src="../countryButtonCountry.js"></script>
+<script src="../helpButton.js"></script>
 <script src="../leaflet.awesome-markers.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
@@ -92,11 +93,14 @@
 	}
 	};
 	
+	L.control.HelpInfoButton({ text: '??'}).addTo(map);	
 	L.control.groupedLayers(baselayers, layers).addTo(map);
   
-  L.control.scale().addTo(map);
+  	L.control.scale().addTo(map);
   
 	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
 	L.control.custombutton({ text: 'PRG', link: '../drivers/prg' }).addTo(map);
+
+	<% include ../partials/helpControl %>
 
 </script>

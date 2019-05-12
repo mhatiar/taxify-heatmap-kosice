@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 
 <head>
   <% include ../partials/head %>
 </head>
 
-<body>
+<body class="map-active">
 
-  <div id="map"></div>
+  <div class="visualizer">
+    <% include ../partials/help_sk %>
+    <div id="map"></div>
+  </div>
 
   <% include ../partials/driversscripts %>
   <% include ../partials/countriesButtons %>

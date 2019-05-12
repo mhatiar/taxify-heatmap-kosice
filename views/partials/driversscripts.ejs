@@ -1,5 +1,7 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
 <script src="../customButton.js"></script> 
+<script src="../helpButton.js"></script>
 <script src="../countryButtonCountry.js"></script>
 <script src="../leaflet.awesome-markers.js"></script>
 
@@ -28,6 +30,8 @@
 	for (var driverMark of drvrs){
 		var marker = L.marker([driverMark[0], driverMark[1]],{icon: greenMarker}).addTo(map);;
 	}
+
+	L.control.HelpInfoButton({ text: '??'}).addTo(map);	
 	
 	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
 	L.control.custombutton({ text: 'KE', link: '../' }).addTo(map);
@@ -37,5 +41,7 @@
 	L.control.custombutton({ text: 'NR', link: '../drivers/nr' }).addTo(map);
 	L.control.custombutton({ text: 'BB', link: '../drivers/bb' }).addTo(map);
 	L.control.custombutton({ text: 'TT', link: '../drivers/tt' }).addTo(map);
+
+	<% include ../partials/helpControl %>
   
 </script>

@@ -5,9 +5,12 @@
   <% include ../partials/head %>
 </head>
 
-<body>
+<body class="map-active">
 
-  <div id="map"></div>
+  <div class="visualizer">
+    <% include ../partials/help_sk %>
+    <div id="map"></div>
+  </div>
 
   <% include ../partials/czechRepublicScripts %>
   <% include ../partials/countriesButtons %>
