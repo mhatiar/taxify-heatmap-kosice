@@ -36,6 +36,7 @@ if (cluster.isMaster) {
 	var indexRouter = require('./routes/index');
 	var allHeatDataRouter = require('./routes/allHeatData');
 	var weekDayDataRouter = require('./routes/getWeekDayHeatData');
+	var currentHour = require('./routes/getCurrentHourHeatData');
 	var heatPerCityRouter = require('./routes/getCityHeatData');
 	var wazeDataRouter = require('./routes/getWazeData');
     var app = express();
@@ -62,6 +63,7 @@ if (cluster.isMaster) {
 	//Routers 
 	app.use('/', indexRouter);
 	app.use('/all', allHeatDataRouter);
+	app.use('/currenthour', currentHour);
 	app.use('/', weekDayDataRouter);
 	app.use('/waze', wazeDataRouter);
 	//app.use('/drivers', heatPerCityRouter);

@@ -1,0 +1,81 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+<script src="../leaflet.heat.min.js"></script>
+<script src="../leaflet-heat.js"></script>  
+<script src="../groupLayerPanel.js"></script>  
+<script src="../helpButton.js"></script>
+<script src="../customButton.js"></script>
+<script src="../countryButtonCountry.js"></script>  
+<script src="../donateButton.js"></script>
+<script src="../leaflet.awesome-markers.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+
+<script>
+  
+  var setMapPosition = <%- JSON.stringify(mapPosition) %>;  
+
+  var map = L.map('map').setView([setMapPosition[0], setMapPosition[1]], 13);
+  var d = new Date();
+  var hr = d.getHours();
+  var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  	maxZoom: 17,
+	minZoom: 2,
+  	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  
+  var heatOptions = {
+			tileOpacity: 1,
+			heatOpacity: 1,
+			scaleRadius: true,			
+			radius: 30,
+			blur: 15
+		};
+		
+  
+  	var currentHourAddressPoints = <%- JSON.stringify(currentHour) %>;
+
+	var drvrs = <% if (typeof(drivers) !== 'undefined') { %>
+	<%- JSON.stringify(drivers) %>
+	<% } %>
+	
+	var policePositions = <% if (typeof(police) !== 'undefined') { %>
+	<%- JSON.stringify(police) %>
+	<% } %>
+	
+	var currentHourData = L.heatLayer(currentHourAddressPoints, heatOptions);
+	
+	currentHourData.addTo(map);
+
+	L.control.CustomButtonDonate({ text: '..', link: '' }).addTo(map);
+	L.control.HelpInfoButton({ text: '??'}).addTo(map);	
+	<!-- L.control.locate().addTo(map); -->
+	L.control.scale().addTo(map);
+
+	<!-- Creates a red marker with the coffee icon -->
+	var driverMarkerSettings = L.AwesomeMarkers.icon({
+		icon: 'car',
+		prefix: 'fa',
+		markerColor: 'darkgreen'
+	});
+	var policeMarkerSettings = L.AwesomeMarkers.icon({
+		icon: 'user-shield',
+		prefix: 'fa',
+		markerColor: 'cadetblue',
+		title: 'Policajná hliadka'
+	});
+	
+	for (var driverMark of drvrs){
+		var marker = L.marker([driverMark[0], driverMark[1]],{icon: driverMarkerSettings}).addTo(map);
+	};
+	
+	for (var policeMark of policePositions){
+		var marker = L.marker([policeMark[0], policeMark[1]],{icon: policeMarkerSettings}).addTo(map);
+	}; 
+	
+	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);
+
+	<% include ../partials/helpControl %>
+
+</script>
