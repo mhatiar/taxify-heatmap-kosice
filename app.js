@@ -133,7 +133,7 @@ if (cluster.isMaster) {
 			policeDataArray.push([policePatrol.lat ,policePatrol.lng ]);
 		}		
 		
-		if(city == "bb" || city == "ba" || city == "ke" || city == "prg" || city == "jnb"){
+		if(city == "bb" || city == "ba" || city == "ke" || city == "nr" || city == "prg" || city == "jnb"){
 		
 			var a = new time.Date();
 			var d = a.setTimezone('Europe/Bratislava');
