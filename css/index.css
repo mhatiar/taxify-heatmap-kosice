@@ -237,7 +237,7 @@ input#email {
   outline: 0;
 }
 
-button#launch {
+button#launch,#donationClose {
   font-family: PTSans, Helvetica, Arial, sans-serif;
   display: inline-block;
   padding: 6px 12px;
