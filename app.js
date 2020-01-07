@@ -84,8 +84,8 @@ if (cluster.isMaster) {
 		resave: true,
 		saveUninitialized: false,
 		cookie: {
-			secure: true,
-			sameSite: 'none',
+			secure: false,
+			sameSite: 'strict',
 			maxAge:  12 * 60 * 60 * 1000
 		},
 		store: new MongoStore({ mongooseConnection: mongoose.connection })
