@@ -83,8 +83,11 @@ if (cluster.isMaster) {
 		secret: '§adfkjdfadsf3645fadsf54asfd41',
 		resave: true,
 		saveUninitialized: false,
-		SameSite: 'Strict',
-		secure: true,
+		cookie: {
+			secure: true,
+			sameSite: 'none',
+			maxAge:  12 * 60 * 60 * 1000
+		},
 		store: new MongoStore({ mongooseConnection: mongoose.connection })
 	  }));
 	  
