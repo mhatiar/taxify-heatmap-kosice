@@ -27,21 +27,49 @@ if (cluster.isMaster) {
     var express = require('express');
     var bodyParser = require('body-parser');
 	var time = require('time');
+	var session = require("express-session");
+	const mongoose = require('mongoose');
+	const passport = require('passport');
+	const flash = require('connect-flash');
+	var MongoStore = require('connect-mongo')(session);
+	var async = require('async');
+
+	//Data Retrievers
 	const dataRet = require("./lib/retrieve");
 	const driversRet = require("./lib/retrieveDrivers");
 	const wazeRet = require("./lib/retrieveWaze");
 	
     AWS.config.region = process.env.REGION
 	
-	var indexRouter = require('./routes/index');
+	//Routers
+	var introRouter = require('./routes/introPage');
+	var landingRouter = require('./routes/index');
 	var allHeatDataRouter = require('./routes/allHeatData');
 	var weekDayDataRouter = require('./routes/getWeekDayHeatData');
 	var currentHour = require('./routes/getCurrentHourHeatData');
 	var heatPerCityRouter = require('./routes/getCityHeatData');
 	var wazeDataRouter = require('./routes/getWazeData');
-    var app = express();
+	const usersRouter = require("./routes/users");
 
-    app.set('view engine', 'ejs');
+	//Auth Utils 
+	var app = express();
+
+	// Passport Config
+	require('./config/passport')(passport);
+
+	// DB Config
+	const db = require('./config/keys').mongoURI;
+
+	// Connect to MongoDB
+	mongoose
+		.connect(
+			db,
+			{ useNewUrlParser: true,useUnifiedTopology: true }
+		)
+		.then(() => console.log('MongoDB Connected'))
+		.catch(err => console.log(err));
+	
+	app.set('view engine', 'ejs');
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(express.static('js'));
@@ -49,7 +77,17 @@ if (cluster.isMaster) {
 	app.use(express.static('img/favicon'));
 	app.use(express.static('img/sharepicture'));
 	app.use(express.static('img/countryicons'));
-	
+	app.use(express.json());
+
+	app.use(session({
+		secret: '§adfkjdfadsf3645fadsf54asfd41',
+		resave: true,
+		saveUninitialized: false,
+		SameSite: 'Strict',
+		secure: true,
+		store: new MongoStore({ mongooseConnection: mongoose.connection })
+	  }));
+	  
 	//We cache the location data as it takes 8 seconds to load. So that It is loaded when the app is installed.
     const promise = new Promise(function(resolve, reject) {
 		// retrieve the data from API
@@ -60,14 +98,33 @@ if (cluster.isMaster) {
     });
 	app.set('promise', promise);
 	
+	// Passport middleware
+	app.use(passport.initialize());
+	app.use(passport.session());
+	
+	// Connect flash
+	app.use(flash());
+	
+	// Global variables
+	app.use(function(req, res, next) {
+	  res.locals.success_msg = req.flash('success_msg');
+	  res.locals.error_msg = req.flash('error_msg');
+	  res.locals.error = req.flash('error');
+	  next();
+	});
+
+	const { ensureAuthenticated } = require('./config/auth');
+	const { ensureSubscriptionActive } = require('./config/roles');
+
 	//Routers 
-	app.use('/', indexRouter);
-	app.use('/all', allHeatDataRouter);
-	app.use('/currenthour', currentHour);
-	app.use('/', weekDayDataRouter);
-	app.use('/waze', wazeDataRouter);
-	//app.use('/drivers', heatPerCityRouter);
-	app.get('/drivers/:city', async function(req, res) { 
+	app.use('/', introRouter);
+	app.use('/index', ensureAuthenticated, ensureSubscriptionActive, landingRouter);
+	app.use('/users', usersRouter);
+	app.use('/all',ensureAuthenticated, ensureSubscriptionActive, allHeatDataRouter);
+	app.use('/currenthour', ensureAuthenticated, ensureSubscriptionActive, currentHour);
+	app.use('/wd', ensureAuthenticated, ensureSubscriptionActive, weekDayDataRouter);
+
+	app.get('/drivers/:city', ensureAuthenticated, ensureSubscriptionActive, async function(req, res) { 
 	
 	var city = req.params.city
 	var defaultMapPosition
@@ -219,16 +276,39 @@ if (cluster.isMaster) {
 		}
 		else { 
 			 
-			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city, siteName: pageData.siteName, description: pageData.description  });
+			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city, siteName: pageData.siteName, description: pageData.description });
 				
 		}
 		
 	} catch (err) {}
-	}) 
+	})
+	 
+	  
+	  // Only let the user access the route if they are authenticated.
+	  //https://github.com/okta/samples-nodejs-express-4/blob/master/resource-server/server.js
+	function loginRequired(req, res, next) {
 
-    var port = process.env.PORT || 3000;
+		if (!req.user) {
+		  return res.status(401).render("pages/unauthenticated");
+		}
+	  
+		next();
+	}
 
-    var server = app.listen(port, function () {
-        console.log('Server running at http://127.0.0.1:' + port + '/');
-    });
+	//var port = process.env.PORT || 3000;
+	
+	//auth.oidc.on('ready', () => {
+		//app.listen(3000, () => console.log('app started'));
+		var port = process.env.PORT || 3000;
+
+		var server = app.listen(port, function () {
+			console.log('Server running at http://127.0.0.1:' + port + '/');
+		});
+
+
+	//});
+
+    //var server = app.listen(port, function () {
+    //    console.log('Server running at http://127.0.0.1:' + port + '/');
+    //});
 }

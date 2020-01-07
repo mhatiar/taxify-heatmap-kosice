@@ -70,6 +70,7 @@ router.get('/', function(req, res, next) {
 			}
 			
 				var pageData = { 
+					user: req.user,
 					headTitle: headTitle, 
 					mapPosition: defaultMapPosition, 
 					city: city,

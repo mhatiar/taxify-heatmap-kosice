@@ -1,0 +1,29 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
+<script src="../leaflet.heat.min.js"></script>
+<script src="../leaflet-heat.js"></script>
+<script src="../logOutButton.js"></script>
+<script src="../userButton.js"></script>
+<script src="../helpButton.js"></script>
+
+<script>
+
+  var map = L.map('map').setView([48.7171, 21.2494], 13);
+  var osm_mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  	maxZoom: 17,
+	minZoom: 2,
+  	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  
+  <% if(locals.user){ %>
+         L.control.CustomButtonLogout().addTo(map);
+	       L.control.CustomButtonUser().addTo(map);
+        L.control.HelpInfoButton({ text: '??'}).addTo(map);	
+        
+        <% include ../partials/helpControl %>
+        
+    <% }else{ %>
+        <% }
+    %>	
+
+</script>
