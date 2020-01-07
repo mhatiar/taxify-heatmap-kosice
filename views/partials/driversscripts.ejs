@@ -2,6 +2,8 @@
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> 
 <script src="../customButton.js"></script> 
 <script src="../helpButton.js"></script>
+<script src="../logOutButton.js"></script>
+<script src="../userButton.js"></script>
 <script src="../countryButtonCountry.js"></script>
 <script src="../leaflet.awesome-markers.js"></script>
 
@@ -31,6 +33,8 @@
 		var marker = L.marker([driverMark[0], driverMark[1]],{icon: greenMarker}).addTo(map);;
 	}
 
+	L.control.CustomButtonLogout().addTo(map);
+	L.control.CustomButtonUser().addTo(map);
 	L.control.HelpInfoButton({ text: '??'}).addTo(map);	
 	
 	L.control.custombutton({ text: drvrs.length, link: '' }).addTo(map);

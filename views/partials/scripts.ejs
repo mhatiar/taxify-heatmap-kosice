@@ -7,6 +7,8 @@
 <script src="../customButton.js"></script>
 <script src="../countryButtonCountry.js"></script>  
 <script src="../donateButton.js"></script>
+<script src="../logOutButton.js"></script>
+<script src="../userButton.js"></script>
 <script src="../leaflet.awesome-markers.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
@@ -74,7 +76,9 @@
 	}
 	};
 
-	L.control.CustomButtonDonate({ text: '..', link: '' }).addTo(map);
+	<!--L.control.CustomButtonDonate({ text: '..', link: '' }).addTo(map);-->
+	L.control.CustomButtonLogout().addTo(map);
+	L.control.CustomButtonUser().addTo(map);
 	L.control.HelpInfoButton({ text: '??'}).addTo(map);	
 	L.control.groupedLayers(baselayers, layers).addTo(map);
 	<!-- L.control.locate().addTo(map); -->

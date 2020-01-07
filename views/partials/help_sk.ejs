@@ -3,21 +3,6 @@
             <!-- Intro -->
             <div id="intro" class="content-box hidden">
                 <h2>Hotspot Dopytová Mapa</h2>
-                <div class="note">
-                  <p><strong> Pozor: </strong> Momentálne prebieha zbierka na urdržanie služby. Mesačné náklady suvisiace s prevádzkou servra činia 60 Eur. Cieľom je zozbierať 700 Eur, čo zabezpečí chod strány nasledujúci rok. Ak sumu nevyzbierame, butem nútený k zastaveniu poskytovanej služby. Pre príspevok použite tlačidlo "Donate" </p>
-                  <p>Za mesiac september bolo vyzbieraných 20 EUR čo postačuje na dalších 10 dní prevádzky. </p>
-                  <div>
-                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="EXJ589YFSQD2N" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="Páči sa Vám tento projekt? Prispejte na jeho fungovanie a další vývoj!" alt="Donate with PayPal button" />
-                    <img alt="" border="0" src="https://www.paypal.com/en_SK/i/scr/pixel.gif" width="1" height="1" />
-                    </form>
-                  </div>
-                  <div>
-                    <progress max="100" value="0" title=" Vyzbierané 0 % "></progress>
-                  </div>
-                </div>
                 <p>Vitajte na stránke <b>vizualizácie dopytu po jazdách</b> vo Vašom meste. Táto mapa vznikla ako <b>projekt vodiča pre vodičov</b>. Pri jazdení sa mnohokrát stávalo, že v meste bolo mnoho iných vodičov a v prípade, že som sa nachádzal na nesprávnom mieste, čakal som na dalšiu jazdu aj pol hodinu. Preto som prišiel s myšlienkou <b>zobrazenia horúcich miest / hotspotov v konkrétnom čase v daný deň</b> v týždni. Po vývoji a využití mojich údajov a údajov iných vodičov o jazdách, som dosiahol konkurenčnú výhodu. Jazdil som do miest, kde bol dopyt najvyšší a dosiahol som <b>výššiu obsadenosť a </b> tým aj <b>vyšší príjem</b>.</p>
                 <p><b>Hotspot Mapa:</b></p>
                 <ul>
@@ -46,29 +31,14 @@
                 <button id="launch" style="justify-content: center">Zavrieť</button>
                 <p class="credit">V prípade, že mapu používate a prináša Vám osoch, môžete prispieť cez tlačidlo "Donate". Zozbierané prostriedky budú použité na zaplatenie servra a prípadne na ďalší vývoj.</p>
             </div>
-
-            <div id="donation" class="content-box hidden">
-              <h2>Hotspot Dopytová Mapa</h2>
-              <div class="note">
-                <p><strong> Pozor: </strong> Momentálne prebieha zbierka na urdržanie služby. Mesačné náklady suvisiace s prevádzkou servra činia 60 Eur. Cieľom je zozbierať 700 Eur, čo zabezpečí chod strány nasledujúci rok. Ak sumu nevyzbierame, butem nútený k zastaveniu poskytovanej služby. Pre príspevok použite tlačidlo "Donate" </p>
-                <p>Za mesiac september bolo vyzbieraných 20 EUR čo postačuje na dalších 10 dní prevádzky. </p>
-                <div>
-                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                  <input type="hidden" name="cmd" value="_s-xclick" />
-                  <input type="hidden" name="hosted_button_id" value="EXJ589YFSQD2N" />
-                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="Páči sa Vám tento projekt? Prispejte na jeho fungovanie a další vývoj!" alt="Donate with PayPal button" />
-                  <img alt="" border="0" src="https://www.paypal.com/en_SK/i/scr/pixel.gif" width="1" height="1" />
-                  </form>
-                </div>
-                <div>
-                  <p id="countDown"></p>
-                </div>
-                <div>
-                  <progress max="100" value="0" title=" 0 % "></progress>
-                </div>
-              </div>
-              <button id="donationClose" style="justify-content: center">Zavrieť</button>
+            <!-- Profile -->
+            <div id="profileDetails" class="content-box hidden">
+              <h2>Uživateľský Profil</h2>
+              <p>Vitaj: <b><%= user.name %></b></p>
+              <p>Registračný email: <b><%= user.email %></b></p>
+              <p>Predplatné služby do: <b><%= user.subscriptionUntil %></b></p>
+              <p>Status predplatného: <b><%= user.subscriptionStatus %></b></p>
+              <button id="profileClose" style="justify-content: center">Zavrieť</button>
           </div>
-
         </div>
     </div>
