@@ -281,3 +281,36 @@ div.disclaimer {
   margin-top: 8px;
   font-style: italic;
 }
+
+div.columns {
+  float: left;
+  width: 50%;
+  padding: 8px;
+}
+
+ul.price {
+  list-style-type: none;
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+ul.price .header {
+  background-color: #111;
+  color: white;
+  font-size: 25px;
+}
+
+ul.price li {
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+  text-align: center;
+}
+
+ul.price .grey {
+  background-color: #eee;
+  font-size: 20px;
+}
+

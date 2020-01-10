@@ -41,32 +41,50 @@
               <h2>Uživateľský Profil</h2>
               <p>Vitaj: <b><%= user.name %></b></p>
               <p>Registračný email: <b><%= user.email %></b></p>
-              <p>Predplatné služby do: <b><%= user.subscriptionUntil %></b></p>
+              <% var day = user.subscriptionUntil.getDate()
+                 var month =  user.subscriptionUntil.getMonth() + 1
+                 var year = user.subscriptionUntil.getFullYear()
+                 var minutes = (user.subscriptionUntil.getMinutes()<10?'0':'') + user.subscriptionUntil.getMinutes() 
+                 var hours = user.subscriptionUntil.getHours()
+                var dateTimeSubUntil = hours + ":" + minutes + " " + day + "/" + month + "/" + year %>
+              <p>Predplatné služby do: <b><%= dateTimeSubUntil %></b></p>
               <p>Status predplatného: <b><%= user.subscriptionStatus %></b></p>
 
               <% if(user.subscriptionStatus == "inactive"){ %>
               <div class="container-fluid bg-3 text-center">
-                <p class="text-left">sluzba je spoplatnena</p>
+                <p class="text-left note"><b>Táto služba je spoplatnená. Aby ste dostali prístup k údajom, je potrebné aby ste si aktivovali jeden z nasledujúcich balíkov.</b></p>
                 <div class="row">
-                    <div class="col-sm-6">
-                      <h4>Basic Package</h4>
-                      <p>2 tyzdne, cena 2 eura</p>
-                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                        <input type="hidden" name="cmd" value="_s-xclick">
-                        <input type="hidden" name="hosted_button_id" value="4D4RPK26EQXC2">
-                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                        <img alt="" border="0" src="https://www.paypalobjects.com/sk_SK/i/scr/pixel.gif" width="1" height="1">
-                      </form>
+                    <div class="columns">
+                      <ul class="price">
+                        <li class="header">Základný balík</li>
+                        <li class="grey">2.00 €</li>
+                        <li>Prístup na <b>2 týždne</b></li>
+                        <li>Pololoha vodičov vo všetkých mestách</li>
+                        <li>Hotspoty v mestách KE, BB, NR, BA</li>
+                        <li class="grey">
+                          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="4D4RPK26EQXC2">
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                          </form>
+                        </li>
+                      </ul>
                     </div>
-                    <div class="col-sm-6"> 
-                      <h4>Advanced Package</h4>
-                      <p>1 mesiac, cena 3,50 eura</p>
-                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                        <input type="hidden" name="cmd" value="_s-xclick" />
-                        <input type="hidden" name="hosted_button_id" value="EXJ589YFSQD2N" />
-                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                        <img alt="" border="0" src="https://www.paypal.com/en_SK/i/scr/pixel.gif" width="1" height="1" />
-                      </form>      
+                    <div class="columns"> 
+                      <ul class="price">
+                        <li class="header" style="background-color:#4CAF50">Pokročilý balík</li>
+                        <li class="grey">3.50 €</li>
+                        <li>Prístup na <b>1 mesiac</b></li>
+                        <li>Pololoha vodičov vo všetkých mestách</li>
+                        <li>Hotspoty v mestách KE, BB, NR, BA</li>
+                        <li class="grey">
+                          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick" />
+                            <input type="hidden" name="hosted_button_id" value="EXJ589YFSQD2N" />
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                          </form> 
+                        </li>
+                      </ul>       
                     </div>
                 </div>
               </div>
