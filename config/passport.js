@@ -34,6 +34,16 @@ module.exports = function(passport) {
 
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
+      if(user.subscriptionUntil < new Date()){
+        // Subscription exipred, set status to inactive
+        user.subscriptionStatus = "inactive"
+      }
+      if(user.subscriptionUntil > new Date()){
+        // Subscription exipred, set status to inactive
+        user.subscriptionStatus = "active"
+      }
+      user.lastLoginDate = new Date()
+      user.save()
       done(err, user);
     });
   });

@@ -9,7 +9,6 @@
                   <li>Vznikla ako projekt vodiča pre vodičov</li>
                   <li>Informuje vodiča o miestach, kde je pravdepodobne najvyšší dopyt po jazde</li>
                   <li>Zobrazuje priblyžnú polohu a počet ostatných voľných vodičov bolt</li>
-                  <li>Je zadarmo a može Vám vzvýšiť obsadenosť a príjimy</li>
                   <li>Pomáha znížiť čas prestojov</li>
                   <li>Funguje na základe pravidelnosti a predvidateľnosti ľudského spravania</li>
                   <li>Agreguje historické údaje vodičov pre konkrétne miesto, čas a deň v týždni</li>
@@ -32,12 +31,47 @@
                 <p class="credit">V prípade, že mapu používate a prináša Vám osoch, môžete prispieť cez tlačidlo "Donate". Zozbierané prostriedky budú použité na zaplatenie servra a prípadne na ďalší vývoj.</p>
             </div>
             <!-- Profile -->
-            <div id="profileDetails" class="content-box hidden">
+            <% if(user.subscriptionStatus == "inactive"){ %>
+              <div id="profileDetails" class="content-box">
+              <% }else{ %>
+                    <div id="profileDetails" class="content-box hidden">
+                  <% }
+            %>
+            
               <h2>Uživateľský Profil</h2>
               <p>Vitaj: <b><%= user.name %></b></p>
               <p>Registračný email: <b><%= user.email %></b></p>
               <p>Predplatné služby do: <b><%= user.subscriptionUntil %></b></p>
               <p>Status predplatného: <b><%= user.subscriptionStatus %></b></p>
+
+              <% if(user.subscriptionStatus == "inactive"){ %>
+              <div class="container-fluid bg-3 text-center">
+                <p class="text-left">sluzba je spoplatnena</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                      <h4>Basic Package</h4>
+                      <p>2 tyzdne, cena 2 eura</p>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="4D4RPK26EQXC2">
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/sk_SK/i/scr/pixel.gif" width="1" height="1">
+                      </form>
+                    </div>
+                    <div class="col-sm-6"> 
+                      <h4>Advanced Package</h4>
+                      <p>1 mesiac, cena 3,50 eura</p>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick" />
+                        <input type="hidden" name="hosted_button_id" value="EXJ589YFSQD2N" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        <img alt="" border="0" src="https://www.paypal.com/en_SK/i/scr/pixel.gif" width="1" height="1" />
+                      </form>      
+                    </div>
+                </div>
+              </div>
+              <% }
+              %>
               <button id="profileClose" style="justify-content: center">Zavrieť</button>
           </div>
         </div>

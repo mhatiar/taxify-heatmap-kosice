@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
   subscriptionUntil: {
     type: Date,
   },
+  lastLoginDate: {
+    type: Date,
+    default: Date.now
+  },
   role: {
     type: String,
     default: 'basic',
