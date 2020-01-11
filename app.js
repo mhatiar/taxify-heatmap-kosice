@@ -50,6 +50,7 @@ if (cluster.isMaster) {
 	var heatPerCityRouter = require('./routes/getCityHeatData');
 	var wazeDataRouter = require('./routes/getWazeData');
 	const usersRouter = require("./routes/users");
+	const paymentRouter = require('./routes/payment');
 
 	//Auth Utils 
 	var app = express();
@@ -123,6 +124,7 @@ if (cluster.isMaster) {
 	app.use('/', introRouter);
 	app.use('/index', ensureAuthenticated, ensureSubscriptionActive, landingRouter);
 	app.use('/users', usersRouter);
+	app.use('/payment', paymentRouter);
 	app.use('/all',ensureAuthenticated, ensureSubscriptionActive, allHeatDataRouter);
 	app.use('/currenthour', ensureAuthenticated, ensureSubscriptionActive, currentHour);
 	app.use('/wd', ensureAuthenticated, ensureSubscriptionActive, weekDayDataRouter);
@@ -136,6 +138,7 @@ if (cluster.isMaster) {
 	var pageData = {};
 	pageData.description = "Chcete sa vyhnúť nekonečným prestojom vo Vašom meste, alebo ste sa ocitli v časti mesta ktoré nepoznáte a nechcete prejazdiť kopec kilometrov navyše ? Mapa hotspotov tento problém výrieši a zvýši Vaše zisky, pomôže Vám odhadnúť odkial príde ďalšia objednávka."
 	pageData.siteName = "Horúce miesta vo Vašom meste"; 
+	pageData.user = req.user
 
 	if(city == "ba"){
 		defaultMapPosition =  [48.1485, 17.1077];
@@ -279,39 +282,16 @@ if (cluster.isMaster) {
 		}
 		else { 
 			 
-			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city, siteName: pageData.siteName, description: pageData.description });
+			res.render('pages/drivers', {headTitle: headTitle, mapPosition: defaultMapPosition, drivers: driversDataArray,	police: policeDataArray, city: city, siteName: pageData.siteName, description: pageData.description, user:req.user });
 				
 		}
 		
 	} catch (err) {}
 	})
-	 
-	  
-	  // Only let the user access the route if they are authenticated.
-	  //https://github.com/okta/samples-nodejs-express-4/blob/master/resource-server/server.js
-	function loginRequired(req, res, next) {
 
-		if (!req.user) {
-		  return res.status(401).render("pages/unauthenticated");
-		}
-	  
-		next();
-	}
+	var port = process.env.PORT || 3000;
 
-	//var port = process.env.PORT || 3000;
-	
-	//auth.oidc.on('ready', () => {
-		//app.listen(3000, () => console.log('app started'));
-		var port = process.env.PORT || 3000;
-
-		var server = app.listen(port, function () {
-			console.log('Server running at http://127.0.0.1:' + port + '/');
-		});
-
-
-	//});
-
-    //var server = app.listen(port, function () {
-    //    console.log('Server running at http://127.0.0.1:' + port + '/');
-    //});
+	var server = app.listen(port, function () {
+		console.log('Server running at http://127.0.0.1:' + port + '/');
+	});
 }

@@ -61,7 +61,7 @@ router.get('/', function(req, res, next) {
 				
 					var pageData = { 
 						headTitle: headTitle, 
-						user: user = req.user,
+						user: req.user,
 						mapPosition: defaultMapPosition, 
 						city: city,
 						morning: getDayPeakData( 'Morning' ), 
