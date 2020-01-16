@@ -86,7 +86,7 @@ router.post('/ipn', function(req, res) {
 	
 	let postreq = 'cmd=_notify-validate';
 	Object.keys(req.body).map((key) => {
-        	postreq = `${postreq}&${key}=${body[key]}`;
+        	postreq = `${postreq}&${key}=${req.body[key]}`;
         	return key;
       	});
 
