@@ -76,13 +76,13 @@ router.post('/ipn', function(req, res) {
 	res.end();
 
 	// read the IPN message sent from PayPal and prepend 'cmd=_notify-validate'
-	var postreq = 'cmd=_notify-validate';
-	for (var key in req.body) {
-		if (req.body.hasOwnProperty(key)) {
-			var value = querystring.escape(req.body[key]);
-			postreq = postreq + "&" + key + "=" + value;
-		}
-	}
+	var postreq = 'cmd=_notify-validate&' + req.body;
+	//for (var key in req.body) {
+	//	if (req.body.hasOwnProperty(key)) {
+	//		var value = querystring.escape(req.body[key]);
+	//		postreq = postreq + "&" + key + "=" + value;
+	//	}
+	//}
 
 	// Step 2: POST IPN data back to PayPal to validate
 	console.log('Posting back to paypal');
@@ -124,16 +124,25 @@ router.post('/ipn', function(req, res) {
 				console.log("Checking variable");
 				console.log("payment_status:", payment_status)
 				console.log('\n\n');
+				
+				const newPayment = new Payment({
+				    name: "Testing",
+				    email: req.body['payer_email'],
+				    paymentDate: new Date(),
+				    paymentAmount: req.body['mc_gross'] 
+				 });
+
+				 newPayment.save();
 
 				// IPN message values depend upon the type of notification sent.
 				// To loop through the &_POST array and print the NV pairs to the screen:
 				console.log('Printing all key-value pairs...')
-				for (var key in req.body) {
-					if (req.body.hasOwnProperty(key)) {
-						var value = req.body[key];
-						console.log(key + "=" + value);
-					}
-				}
+				//for (var key in req.body) {
+				//	if (req.body.hasOwnProperty(key)) {
+				//		var value = req.body[key];
+				//		console.log(key + "=" + value);
+				//	}
+				//}
 
 			} else if (body.substring(0, 7) === 'INVALID') {
 				// IPN invalid, log for manual investigation
