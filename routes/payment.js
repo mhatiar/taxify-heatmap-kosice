@@ -157,6 +157,13 @@ router.post('/ipn', function(req, res) {
 							}
 							newPayment.save();
 
+							//Update User Table
+							User.findOne({ email: req.body['payer_email'] }).then( user => {
+								user.subscriptionUntil = newPayment.subscriptionUntil
+								user.subscriptionStatus = "active"
+								user.save()
+							  });
+
 						}
 					}
 				 })
