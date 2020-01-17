@@ -123,7 +123,7 @@ router.post('/ipn', function(req, res) {
 				console.log("payment_status:", payment_status)
 				console.log('\n\n');
 				
-				if(payment_status === 'completed'){
+				if(payment_status === 'Completed'){
 					var CurrentDate = new Date(); 
 					// 14 days for basic subscription  
 					var newDateBasic = CurrentDate.setDate(CurrentDate.getDate() + 14);
@@ -161,7 +161,7 @@ router.post('/ipn', function(req, res) {
 				//     subscriptionType: "advanced",
     			// 	    subscriptionUntil : new Date()  
 				//  });
-				
+
 
 				// IPN message values depend upon the type of notification sent.
 				// To loop through the &_POST array and print the NV pairs to the screen:
