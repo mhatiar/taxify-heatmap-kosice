@@ -122,36 +122,48 @@ router.post('/ipn', function(req, res) {
 				console.log("Checking variable");
 				console.log("payment_status:", payment_status)
 				console.log('\n\n');
+
+
+				//check unique txn_id , receiver_email = me
 				
-				if(payment_status === 'Completed'){
-					var CurrentDate = new Date(); 
-					// 14 days for basic subscription  
-					var newDateBasic = CurrentDate.setDate(CurrentDate.getDate() + 14);
-					// 1 Month for advanced subscription  
-					var newDateAdvanced = CurrentDate.setMonth(CurrentDate.getMonth() + 1)
-					  
-					const newPayment = new Payment({
-						name: "Testing",
-						email: req.body['payer_email'],
-						paymentDate: new Date()
-						// paymentAmount: req.body['mc_gross'],
-						// subscriptionType: "advanced",
-						// 	subscriptionUntil : new Date()  
-					 });
+				Payment.findOne({ transactionID: txn_id }).then(transaction => {
+					if(transaction){
+						// Duplicated Transaction,
 
-					if(req.body['mc_gross'] == 2.00){
-						newPayment.paymentAmount = req.body['mc_gross'],
-						newPayment.subscriptionType = "basic",
-						newPayment.subscriptionUntil = newDateBasic
-					}
-					if(req.body['mc_gross'] == 3.50){
-						newPayment.paymentAmount = req.body['mc_gross'],
-						newPayment.subscriptionType = "advanced",
-						newPayment.subscriptionUntil = newDateAdvanced
-					}
-					newPayment.save();
+					} else {
+						if(payment_status === 'Completed'){
+							var CurrentDateBasic = new Date(); 
+							// 14 days for basic subscription  
+							var newDateBasic = CurrentDateBasic.setDate(CurrentDate.getDate() + 14);
+							// 1 Month for advanced subscription  
+							var CurrentDateAdvanced = new Date(); 
+							var newDateAdvanced = CurrentDateAdvanced.setMonth(CurrentDate.getMonth() + 1)
+							
+							const newPayment = new Payment({
+								transactionID: txn_id,
+								email: req.body['payer_email'],
+								paymentDate: new Date()
+								// paymentAmount: req.body['mc_gross'],
+								// subscriptionType: "advanced",
+								// 	subscriptionUntil : new Date()  
+							});
 
-				}
+							if(req.body['mc_gross'] == 2.00){
+								newPayment.paymentAmount = req.body['mc_gross'],
+								newPayment.subscriptionType = "basic",
+								newPayment.subscriptionUntil = newDateBasic
+							}
+							if(req.body['mc_gross'] == 3.50){
+								newPayment.paymentAmount = req.body['mc_gross'],
+								newPayment.subscriptionType = "advanced",
+								newPayment.subscriptionUntil = newDateAdvanced
+							}
+							newPayment.save();
+
+						}
+					}
+				 })
+				
 
 				// const newPayment = new Payment({
 				//     name: "Testing",
