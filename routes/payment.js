@@ -75,15 +75,7 @@ router.post('/ipn', function(req, res) {
 	res.status(200).send('OK');
 	res.end();
 
-	// read the IPN message sent from PayPal and prepend 'cmd=_notify-validate'
-	//var postreq = 'cmd=_notify-validate&' + req.body;
-	//for (var key in req.body) {
-	//	if (req.body.hasOwnProperty(key)) {
-	//		var value = querystring.escape(req.body[key]);
-	//		postreq = postreq + "&" + key + "=" + value;
-	//	}
-	//}
-	
+	// read the IPN message sent from PayPal and prepend 'cmd=_notify-validate'	
 	let postreq = 'cmd=_notify-validate';
 	Object.keys(req.body).map((key) => {
         	postreq = `${postreq}&${key}=${req.body[key]}`;
@@ -131,14 +123,44 @@ router.post('/ipn', function(req, res) {
 				console.log("payment_status:", payment_status)
 				console.log('\n\n');
 				
-				const newPayment = new Payment({
-				    name: "Testing",
-				    email: req.body['payer_email'],
-				    paymentDate: new Date(),
-				    paymentAmount: req.body['mc_gross'],
-				    subscriptionType: "advanced",
-    				    subscriptionUntil : new Date()  
-				 });
+				if(payment_status === 'completed'){
+					var CurrentDate = new Date(); 
+					// 14 days for basic subscription  
+					var newDateBasic = CurrentDate.setDate(CurrentDate.getDate() + 14);
+					// 1 Month for advanced subscription  
+					var newDateAdvanced = CurrentDate.setMonth(CurrentDate.getMonth() + 1)
+					  
+					const newPayment = new Payment({
+						name: "Testing",
+						email: req.body['payer_email'],
+						paymentDate: new Date()
+						// paymentAmount: req.body['mc_gross'],
+						// subscriptionType: "advanced",
+						// 	subscriptionUntil : new Date()  
+					 });
+
+					if(req.body['mc_gross'] == 2.00){
+						newPayment.paymentAmount = req.body['mc_gross'],
+						newPayment.subscriptionType = "basic",
+						newPayment.subscriptionUntil = newDateBasic
+					}
+					if(req.body['mc_gross'] == 3.50){
+						newPayment.paymentAmount = req.body['mc_gross'],
+						newPayment.subscriptionType = "advanced",
+						newPayment.subscriptionUntil = newDateAdvanced
+					}
+					newPayment.save();
+
+				}
+
+				// const newPayment = new Payment({
+				//     name: "Testing",
+				//     email: req.body['payer_email'],
+				//     paymentDate: new Date(),
+				//     paymentAmount: req.body['mc_gross'],
+				//     subscriptionType: "advanced",
+    			// 	    subscriptionUntil : new Date()  
+				//  });
 
 				 newPayment.save();
 
