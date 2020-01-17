@@ -134,18 +134,15 @@ router.post('/ipn', function(req, res) {
 						if(payment_status === 'Completed'){
 							var CurrentDateBasic = new Date(); 
 							// 14 days for basic subscription  
-							var newDateBasic = CurrentDateBasic.setDate(CurrentDate.getDate() + 14);
+							var newDateBasic = CurrentDateBasic.setDate(CurrentDateBasic.getDate() + 14);
 							// 1 Month for advanced subscription  
 							var CurrentDateAdvanced = new Date(); 
-							var newDateAdvanced = CurrentDateAdvanced.setMonth(CurrentDate.getMonth() + 1)
+							var newDateAdvanced = CurrentDateAdvanced.setMonth(CurrentDateAdvanced.getMonth() + 1)
 							
 							const newPayment = new Payment({
 								transactionID: txn_id,
 								email: req.body['payer_email'],
 								paymentDate: new Date()
-								// paymentAmount: req.body['mc_gross'],
-								// subscriptionType: "advanced",
-								// 	subscriptionUntil : new Date()  
 							});
 
 							if(req.body['mc_gross'] == 2.00){
@@ -163,27 +160,6 @@ router.post('/ipn', function(req, res) {
 						}
 					}
 				 })
-				
-
-				// const newPayment = new Payment({
-				//     name: "Testing",
-				//     email: req.body['payer_email'],
-				//     paymentDate: new Date(),
-				//     paymentAmount: req.body['mc_gross'],
-				//     subscriptionType: "advanced",
-    			// 	    subscriptionUntil : new Date()  
-				//  });
-
-
-				// IPN message values depend upon the type of notification sent.
-				// To loop through the &_POST array and print the NV pairs to the screen:
-				//console.log('Printing all key-value pairs...')
-				//for (var key in req.body) {
-				//	if (req.body.hasOwnProperty(key)) {
-				//		var value = req.body[key];
-				//		console.log(key + "=" + value);
-				//	}
-				//}
 
 			} else if (body.substring(0, 7) === 'INVALID') {
 				// IPN invalid, log for manual investigation
