@@ -43,13 +43,13 @@ router.post('/ipn', function(req, res) {
 		if (!error && response.statusCode === 200) {
 
 			// inspect IPN validation result and act accordingly
-			if (body.substring(0, 8) === 'VERIFIED') {
+			//if (body.substring(0, 8) === 'VERIFIED') {
 				// The IPN is verified, process it
 				//console.log('Verified IPN!');
 
 				// assign posted variables to local variables
 				var item_name = req.body['item_name'];
-				var item_number = req.body['item_number'];
+				var item_number = req.body['item_number']; //This is where the product is
 				var payment_status = req.body['payment_status'];
 				var payment_amount = req.body['mc_gross'];
 				var payment_currency = req.body['mc_currency'];
@@ -102,11 +102,11 @@ router.post('/ipn', function(req, res) {
 					}
 				 })
 
-			} else if (body.substring(0, 7) === 'INVALID') {
-				// IPN invalid, log for manual investigation
-				console.log('Invalid IPN!');
-				console.log('\n\n');
-			}
+			//} else if (body.substring(0, 7) === 'INVALID') {
+			//	// IPN invalid, log for manual investigation
+			//	console.log('Invalid IPN!');
+			//	console.log('\n\n');
+			//}
 		}
 	});
 });
