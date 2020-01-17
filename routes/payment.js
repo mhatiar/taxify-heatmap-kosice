@@ -161,8 +161,7 @@ router.post('/ipn', function(req, res) {
 				//     subscriptionType: "advanced",
     			// 	    subscriptionUntil : new Date()  
 				//  });
-
-				 newPayment.save();
+				
 
 				// IPN message values depend upon the type of notification sent.
 				// To loop through the &_POST array and print the NV pairs to the screen:
