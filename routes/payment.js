@@ -11,6 +11,8 @@ var ObjectId = require('mongodb').ObjectId
 
 router.post('/ipn', function(req, res) {
 
+	console.log(req.body)
+
 	// STEP 1: read POST data
 	req.body = req.body || {};
 	res.status(200).send('OK');
