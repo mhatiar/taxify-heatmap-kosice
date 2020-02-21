@@ -58,7 +58,7 @@ router.post('/register', (req, res) => {
           password
         });
         var CurrentDate = new Date();
-        newUser.subscriptionUntil = CurrentDate.setMonth(CurrentDate.getMonth() + 1)
+        newUser.subscriptionUntil = CurrentDate.setDate(CurrentDate.getDate() + 14)
         newUser.registrationDate = new Date();
 
         const accessToken = jwt.sign({ userId: newUser._id }, 'topSecrETT', {
