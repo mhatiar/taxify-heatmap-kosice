@@ -25,9 +25,11 @@ if (cluster.isMaster) {
 } else {
     var AWS = require('aws-sdk');
     var express = require('express');
-    var bodyParser = require('body-parser');
+	var bodyParser = require('body-parser');
+	var fs = require('fs');
 	var time = require('time');
 	var session = require("express-session");
+	var https = require('https');
 	const mongoose = require('mongoose');
 	const passport = require('passport');
 	const flash = require('connect-flash');
@@ -292,7 +294,15 @@ if (cluster.isMaster) {
 	//process.env.PORT = 443
 	var port = process.env.PORT || 3000;
 
-	var server = app.listen(port, function () {
-		console.log('Server running at http://127.0.0.1:' + port + '/');
+	var options = {
+		key: fs.readFileSync('./certs/server-key.pem'),
+		cert: fs.readFileSync('./certs/server-cert.pem'),
+	};
+
+	// var server = app.listen(port, function () {
+	// 	console.log('Server running at http://127.0.0.1:' + port + '/');
+	// });
+	var server = https.createServer(options, app).listen(port, function(){
+		console.log("Express server listening on port " + port);
 	});
 }
