@@ -299,11 +299,11 @@ if (cluster.isMaster) {
 		cert: process.env.SERVER_CERT,
 	};
 
-	// var server = app.listen(port, function () {
-	// 	console.log('Server running at http://127.0.0.1:' + port + '/');
-	// });
-	
-	var server = https.createServer(options, app).listen(port, function(){
-		console.log("Express server listening on port " + port);
+	var server = app.listen(port, function () {
+		console.log('Server running at http://127.0.0.1:' + port + '/');
 	});
+	
+	// var server = https.createServer(options, app).listen(port, function(){
+	// 	console.log("Express server listening on port " + port);
+	// });
 }
