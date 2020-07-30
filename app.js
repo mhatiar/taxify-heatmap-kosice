@@ -295,13 +295,14 @@ if (cluster.isMaster) {
 	var port = process.env.PORT || 3000;
 
 	var options = {
-		key: fs.readFileSync('./certs/server-key.pem'),
-		cert: fs.readFileSync('./certs/server-cert.pem'),
+		key: process.env.SERVER_KEY,
+		cert: process.env.SERVER_CERT,
 	};
 
 	// var server = app.listen(port, function () {
 	// 	console.log('Server running at http://127.0.0.1:' + port + '/');
 	// });
+	
 	var server = https.createServer(options, app).listen(port, function(){
 		console.log("Express server listening on port " + port);
 	});
