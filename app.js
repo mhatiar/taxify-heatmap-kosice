@@ -294,10 +294,10 @@ if (cluster.isMaster) {
 	//process.env.PORT = 443
 	var port = process.env.PORT || 3000;
 
-	// var options = {
-	// 	key: process.env.SERVER_KEY,
-	// 	cert: process.env.SERVER_CERT,
-	// };
+	var options = {
+		key: process.env.SERVER_KEY,
+		cert: process.env.SERVER_CERT,
+	};
 
 	var server = app.listen(port, function () {
 		console.log('Server running at http://127.0.0.1:' + port + '/');
