@@ -6,6 +6,7 @@
 <script src="../userButton.js"></script>
 <script src="../countryButtonCountry.js"></script>
 <script src="../leaflet.awesome-markers.js"></script>
+<script src="../social.js"></script>
 
 <script>
 
@@ -47,5 +48,7 @@
 	L.control.custombutton({ text: 'TT', link: '../drivers/tt' }).addTo(map);
 
 	<% include ../partials/helpControl %>
+
+	L.control.facebook().addTo(map);
   
 </script>

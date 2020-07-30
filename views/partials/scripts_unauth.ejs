@@ -5,6 +5,7 @@
 <script src="../logOutButton.js"></script>
 <script src="../userButton.js"></script>
 <script src="../helpButton.js"></script>
+<script src="../social.js"></script>
 
 <script>
 
@@ -21,6 +22,8 @@
         L.control.HelpInfoButton({ text: '??'}).addTo(map);	
         
         <% include ../partials/helpControl %>
+
+        L.control.facebook().addTo(map);
         
     <% }else{ %>
         <% }

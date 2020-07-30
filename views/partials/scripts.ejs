@@ -10,6 +10,7 @@
 <script src="../logOutButton.js"></script>
 <script src="../userButton.js"></script>
 <script src="../leaflet.awesome-markers.js"></script>
+<script src="../social.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.65.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
@@ -115,5 +116,8 @@
 	L.control.custombutton({ text: 'TT', link: '../drivers/tt' }).addTo(map);
 
 	<% include ../partials/helpControl %>
+
+	L.control.facebook().addTo(map);
+
 
 </script>
